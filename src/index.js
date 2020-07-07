@@ -7,8 +7,9 @@ import {composeWithDevTools} from "redux-devtools-extension";
 
 import * as serviceWorker from './serviceWorker';
 import './index.css';
-import App from "./App";
 import Reducers from "./redux/reducers/Reducers";
+
+import App from "./App";
 
 
 const store = createStore(
@@ -20,9 +21,9 @@ const store = createStore(
 
 ReactDOM.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <App/>
-        </Provider>
+      <Provider store={store}>
+        <App/>
+      </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );

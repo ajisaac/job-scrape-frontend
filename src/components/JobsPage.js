@@ -1,9 +1,15 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {fetchCompanies} from "../redux/actions/Actions";
+import {
+  fetchBlacklistedCompanies,
+  fetchCompanies,
+  updateSearchFilters
+} from "../redux/actions/Actions";
 import Company from "./Company";
+import {fetchCompaniesFiltered} from "../redux/reducers/CompanyReducer";
+import StatusLink from "./StatusLink";
 // import SearchTermBox from "./SearchTermBox";
-// import BlackListBox from "./BlackListBox";
+import BlackListBox from "./BlackListBox";
 // import LabelBox from "./LabelBox";
 // import BlockTitleBox from "./BlockTitleBox";
 
@@ -11,122 +17,106 @@ class JobsPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      companySearch: "",
-      titleSearch: "",
-      search: ""
+      filters: {
+        textFilter: "",
+        companyFilter: "",
+        titleFilter: ""
+      }
     }
   }
 
   componentDidMount() {
     this.props.fetchCompanies();
+    this.props.fetchBlacklistedCompanies();
   }
 
-  // searchCompany = (e) => {
-  //     this.setState({companySearch: e.target.value});
-  //     this.props.searchAction(this.state.search, e.target.value);
-  // };
-  //
-  // searchText = (e) => {
-  //     this.setState({search: e.target.value});
-  //     this.props.searchAction(e.target.value, this.state.companySearch);
-  // };
-  //
-  // searchTitle = (e) => {
-  //     this.setState({titleSearch: e.target.value});
-  //     this.props.searchTitle(e.target.value);
-  // };
-  //
-  // updateJobStateFilter = (e) => {
-  //     this.props.updateJobStateFilter(e.target.value);
-  // };
-  //
-  // amountOfJobs = () => {
-  //     if (this.props.redstate.filteredCompanies.length === 0) return 0;
-  //     return this.props.redstate.filteredCompanies.reduce((acc, company) => {
-  //         return acc + company.jobPostings.length;
-  //     }, 0);
-  // };
+  updateFilters = () => {
+    this.props.updateSearchFilters({
+      ...this.state.filters,
+    });
+  }
+
+  updateTextFilter = e => {
+    this.setState({
+      filters: {
+        ...this.state.filters,
+        textFilter: e.target.value
+      }
+    });
+  }
+
+  updateCompanyFilter = e => {
+    this.setState({
+      filters: {
+        ...this.state.filters,
+        companyFilter: e.target.value
+      }
+    });
+  }
+
+  updateTitleFilter = e => {
+    this.setState({
+      filters: {
+        ...this.state.filters,
+        titleFilter: e.target.value
+      }
+    });
+  }
+
+  getLinks = () => {
+    let statuses = ["new", "saved", "applied", "interviewing", "excluded", "rejected", "ignored", "all"];
+    return statuses.map(status => {
+      return <StatusLink filter={status} selectedFilter={this.props.filter}/>
+    });
+  };
+
 
   render() {
     return (
         <div className={"main"}>
           <div className={"main-panel"}>
             <div className={"company"}>
-                    {/*<span*/}
-                    {/*    className={"job-state-filter-class"}>{this.props.redstate.jobStateFilter.toUpperCase()} JOBS - </span>*/}
-              {/*<span>{this.props.redstate.companies.length} companies - </span>*/}
-              {/*<span>{this.amountOfJobs()} jobs</span>*/}
+                    <span
+                        className={"job-state-filter-class"}>{this.props.filter.toUpperCase()} JOBS - </span>
+              <span>{this.props.companies.numOfCompanies} companies - </span>
+              <span>{this.props.companies.numOfJobs} jobs</span>
               <hr/>
-              <span>Filter by state: </span>
-              {/*<button*/}
-              {/*    value={"new"}*/}
-              {/*    onClick={this.updateJobStateFilter}*/}
-              {/*    className={`btn-link ${this.props.redstate.jobStateFilter === "new" ? "selected" : ""}`}>New*/}
-              {/*</button>*/}
-              {/*<button*/}
-              {/*    value={"saved"}*/}
-              {/*    onClick={this.updateJobStateFilter}*/}
-              {/*    className={`btn-link ${this.props.redstate.jobStateFilter === "saved" ? "selected" : ""}`}>Saved*/}
-              {/*</button>*/}
-              {/*<button*/}
-              {/*    value={"applied"}*/}
-              {/*    onClick={this.updateJobStateFilter}*/}
-              {/*    className={`btn-link ${this.props.redstate.jobStateFilter === "applied" ? "selected" : ""}`}>Applied*/}
-              {/*</button>*/}
-              {/*<button*/}
-              {/*    value={"interviewing"}*/}
-              {/*    onClick={this.updateJobStateFilter}*/}
-              {/*    className={`btn-link ${this.props.redstate.jobStateFilter === "interviewing" ? "selected" : ""}`}>Interviewing*/}
-              {/*</button>*/}
-              {/*<button*/}
-              {/*    value={"excluded"}*/}
-              {/*    onClick={this.updateJobStateFilter}*/}
-              {/*    className={`btn-link ${this.props.redstate.jobStateFilter === "excluded" ? "selected" : ""}`}>Excluded*/}
-              {/*</button>*/}
-              {/*<button*/}
-              {/*    value={"rejected"}*/}
-              {/*    onClick={this.updateJobStateFilter}*/}
-              {/*    className={`btn-link ${this.props.redstate.jobStateFilter === "rejected" ? "selected" : ""}`}>Rejected*/}
-              {/*</button>*/}
-              {/*<button*/}
-              {/*    value={"ignored"}*/}
-              {/*    onClick={this.updateJobStateFilter}*/}
-              {/*    className={`btn-link ${this.props.redstate.jobStateFilter === "ignored" ? "selected" : ""}`}>Ignored*/}
-              {/*</button>*/}
-              {/*<button*/}
-              {/*    value={"all"}*/}
-              {/*    onClick={this.updateJobStateFilter}*/}
-              {/*    className={`btn-link ${this.props.redstate.jobStateFilter === "all" ? "selected" : ""}`}>All*/}
-              {/*</button>*/}
+              <div>
+                <nav>
+                  <span>Filter by state: </span>
+                  {this.getLinks()}
+                </nav>
+              </div>
+              <br/>
 
-              <hr/>
-              <form>
-                <div>
-                  {/*<label>*/}
-                  {/*  Title:*/}
-                  {/*  <input type={"text"}*/}
-                  {/*         value={this.state.titleSearch}*/}
-                  {/*         onChange={this.searchTitle}/>*/}
-                  {/*</label>*/}
-                  {/*<label>*/}
-                  {/*  Companies:*/}
-                  {/*  <input type={"text"}*/}
-                  {/*         value={this.state.companySearch}*/}
-                  {/*         onChange={this.searchCompany}/>*/}
-                  {/*</label>*/}
-                  {/*<label>*/}
-                  {/*  Search:*/}
-                  {/*  <input type={"text"}*/}
-                  {/*         value={this.state.search}*/}
-                  {/*         onChange={this.searchText}/>*/}
-                  {/*</label>*/}
-                </div>
-              </form>
+              <label>
+                Title:
+                <input type={"text"}
+                       value={this.state.filters.titleFilter}
+                       onBlur={this.updateFilters}
+                       onChange={this.updateTitleFilter}/>
+              </label>
+              <label>
+                Companies:
+                <input type={"text"}
+                       value={this.state.filters.companyFilter}
+                       onBlur={this.updateFilters}
+                       onChange={this.updateCompanyFilter}/>
+              </label>
+              <label>
+                Search:
+                <input type={"text"}
+                       value={this.state.filters.textFilter}
+                       onBlur={this.updateFilters}
+                       onChange={this.updateTextFilter}/>
+              </label>
+
             </div>
             <div>
-              {this.props.companies.map((company) => {
+              {this.props.companies.filteredCompanies.map((company) => {
                 return (
-                    <Company key={company.id} company={company}/>
+                    <Company key={company.id} company={company}
+                             filter={this.props.filter}/>
                 );
               })}
             </div>
@@ -141,9 +131,9 @@ class JobsPage extends React.PureComponent {
             {/*<div className={"search-term-box company"}>*/}
             {/*  <BlockTitleBox/>*/}
             {/*</div>*/}
-            {/*<div className={"search-term-box company"}>*/}
-            {/*  <BlackListBox/>*/}
-            {/*</div>*/}
+            <div className={"search-term-box company"}>
+              <BlackListBox/>
+            </div>
           </div>
         </div>
     );
@@ -151,12 +141,20 @@ class JobsPage extends React.PureComponent {
 
 }
 
-const mapStateToProps = (state) => {
-  return {companies: state.companies};
+const mapStateToProps = (state, ownProps) => {
+  let statusFilter = "all";
+  if (ownProps.filter) {
+    statusFilter = ownProps.filter;
+  }
+  return {
+    companies: fetchCompaniesFiltered(state, statusFilter)
+  };
 };
 
 const funcs = {
   fetchCompanies: fetchCompanies,
+  fetchBlacklistedCompanies: fetchBlacklistedCompanies,
+  updateSearchFilters: updateSearchFilters
 };
 
 export default connect(mapStateToProps, funcs)(JobsPage)
