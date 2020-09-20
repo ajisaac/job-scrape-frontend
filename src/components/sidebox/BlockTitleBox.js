@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {blockTitle, fetchBlockTitles, filterTitles, removeBlockTitle} from "../redux/actions/Actions";
+import {blockTitle, fetchBlockTitles, filterTitles, removeBlockTitle} from "../../redux/actions/Actions";
 import "./BlockTitleBox.css"
 
 // A blocked title will be a phrase or word that we can ignore in job titles

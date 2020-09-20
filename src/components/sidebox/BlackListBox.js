@@ -2,8 +2,8 @@ import React from 'react';
 import {connect} from "react-redux";
 import {
   removeBlacklistedCompany
-} from "../redux/actions/Actions";
-import {getBlacklistedCompanies} from "../redux/reducers/CompanyReducer";
+} from "../../redux/actions/Actions";
+import {getBlacklistedCompanies} from "../../redux/reducers/CompanyReducer";
 
 class BlackListBox extends React.Component {
   constructor(props) {

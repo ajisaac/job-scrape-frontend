@@ -5,10 +5,10 @@ import {
   fetchCompanies,
   updateSearchFilters,
 } from "../redux/actions/Actions";
-import Company from "./Company";
+import Company from "./company/Company";
 import { fetchCompaniesFiltered } from "../redux/reducers/CompanyReducer";
-import StatusLink from "./StatusLink";
-import BlackListBox from "./BlackListBox";
+import StatusLink from "./layout/StatusLink";
+import BlackListBox from "./sidebox/BlackListBox";
 import { Grid } from "@material-ui/core";
 
 class JobsPage extends React.PureComponent {
@@ -34,49 +34,6 @@ class JobsPage extends React.PureComponent {
     });
   };
 
-  updateTextFilter = (e) => {
-    this.setState({
-      filters: {
-        ...this.state.filters,
-        textFilter: e.target.value,
-      },
-    });
-  };
-
-  updateCompanyFilter = (e) => {
-    this.setState({
-      filters: {
-        ...this.state.filters,
-        companyFilter: e.target.value,
-      },
-    });
-  };
-
-  updateTitleFilter = (e) => {
-    this.setState({
-      filters: {
-        ...this.state.filters,
-        titleFilter: e.target.value,
-      },
-    });
-  };
-
-  getLinks = () => {
-    let statuses = [
-      "new",
-      "saved",
-      "applied",
-      "interviewing",
-      "excluded",
-      "rejected",
-      "ignored",
-      "all",
-    ];
-    return statuses.map((status) => {
-      return <StatusLink filter={status} selectedFilter={this.props.filter} />;
-    });
-  };
-
   render() {
     return (
       <Grid
@@ -86,49 +43,9 @@ class JobsPage extends React.PureComponent {
         alignItems="stretch"
       >
         <div className={"main-panel"}>
-          <div className={"company"}>
-            <span className={"job-state-filter-class"}>
-              {this.props.filter.toUpperCase()} JOBS -{" "}
-            </span>
-            <span>{this.props.companies.numOfCompanies} companies - </span>
-            <span>{this.props.companies.numOfJobs} jobs</span>
-            <hr />
-            <div>
-              <nav>
-                <span>Filter by state: </span>
-                {this.getLinks()}
-              </nav>
-            </div>
-            <br />
-
-            {/* <label>
-              Title:
-              <input
-                type={"text"}
-                value={this.state.filters.titleFilter}
-                onBlur={this.updateFilters}
-                onChange={this.updateTitleFilter}
-              />
-            </label>
-            <label>
-              Companies:
-              <input
-                type={"text"}
-                value={this.state.filters.companyFilter}
-                onBlur={this.updateFilters}
-                onChange={this.updateCompanyFilter}
-              />
-            </label>
-            <label>
-              Search:
-              <input
-                type={"text"}
-                value={this.state.filters.textFilter}
-                onBlur={this.updateFilters}
-                onChange={this.updateTextFilter}
-              />
-            </label> */}
-          </div>
+          <span>{this.props.companies.numOfCompanies} companies - </span>
+          <span>{this.props.companies.numOfJobs} jobs</span>
+          <hr />
           <Grid container>
             {this.props.companies.filteredCompanies.map((company) => {
               return (
@@ -142,20 +59,6 @@ class JobsPage extends React.PureComponent {
               );
             })}
           </Grid>
-        </div>
-        <div>
-          {/*<div className={"search-term-box company"}>*/}
-          {/*  <SearchTermBox/>*/}
-          {/*</div>*/}
-          {/*<div className={"search-term-box company"}>*/}
-          {/*  <LabelBox/>*/}
-          {/*</div>*/}
-          {/*<div className={"search-term-box company"}>*/}
-          {/*  <BlockTitleBox/>*/}
-          {/*</div>*/}
-          <div className={"search-term-box company"}>
-            <BlackListBox />
-          </div>
         </div>
       </Grid>
     );

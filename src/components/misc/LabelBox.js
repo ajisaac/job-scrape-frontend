@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {updateLabelFilter} from "../redux/actions/Actions";
+import {updateLabelFilter} from "../../redux/actions/Actions";
 
 class LabelBox extends React.PureComponent {
     constructor(props) {

@@ -2,7 +2,6 @@ import React from "react";
 import JobsPage from "./components/JobsPage";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import { Switch } from "react-router";
-import Batch from "./components/Batch";
 import Layout from "./components/Layout";
 
 class App extends React.Component {
@@ -10,53 +9,53 @@ class App extends React.Component {
     return (
       <Router>
         <Switch>
-          <Route path={"/batch"}>
+          {/* <Route path={"/batch"}>
             <Layout>
               <Batch />
             </Layout>
-          </Route>
+          </Route> */}
           <Route path={"/all"}>
-            <Layout>
+            <Layout title="All">
               <JobsPage filter={"all"} />
             </Layout>
           </Route>
           <Route path={"/new"}>
-            <Layout>
+            <Layout title="New">
               <JobsPage filter={"new"} />
             </Layout>
           </Route>
           <Route path={"/saved"}>
-            <Layout>
+            <Layout title="Saved">
               <JobsPage filter={"saved"} />
             </Layout>
           </Route>
           <Route path={"/applied"}>
-            <Layout>
+            <Layout title="Applied">
               <JobsPage filter={"applied"} />
             </Layout>
           </Route>
           <Route path={"/interviewing"}>
-            <Layout>
+            <Layout title="Interviewing">
               <JobsPage filter={"interviewing"} />
             </Layout>
           </Route>
           <Route path={"/excluded"}>
-            <Layout>
+            <Layout title="Excluded">
               <JobsPage filter={"excluded"} />
             </Layout>
           </Route>
           <Route path={"/rejected"}>
-            <Layout>
+            <Layout title="Rejected">
               <JobsPage filter={"rejected"} />
             </Layout>
           </Route>
           <Route path={"/ignored"}>
-            <Layout>
+            <Layout title="Ignored">
               <JobsPage filter={"ignored"} />
             </Layout>
           </Route>
           <Route path={"/"}>
-            <Layout>
+            <Layout title="All">
               <JobsPage filter={"all"} />
             </Layout>
           </Route>

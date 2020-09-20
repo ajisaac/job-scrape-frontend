@@ -16,6 +16,7 @@ import InboxIcon from "@material-ui/icons/Inbox";
 import MailIcon from "@material-ui/icons/Mail";
 import ListItemText from "@material-ui/core/ListItemText";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import NavFilters from "./layout/NavFilters";
 
 const drawerWidth = 240;
 
@@ -42,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
+    paddingTop: 6,
     paddingRight: 240,
   },
 }));
@@ -51,13 +53,13 @@ export default function Layout(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
+      <AppBar position="fixed" elevation="0" className={classes.appBar}>
+        <Toolbar variant="dense">
           <Typography variant="h6" className={classes.title}>
-            Home
+            {props.title} Jobs
           </Typography>
           <div className={classes.grow} />
+          <NavFilters></NavFilters>
         </Toolbar>
       </AppBar>
 
@@ -68,7 +70,7 @@ export default function Layout(props) {
           paper: classes.drawerPaper,
         }}
       >
-        <Toolbar />
+        <Toolbar variant="dense"/>
         <div className={classes.drawerContainer}>
           <List>
             {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (

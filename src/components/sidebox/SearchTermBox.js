@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {updateSearchTermFilter} from "../redux/actions/Actions";
+import {updateSearchTermFilter} from "../../redux/actions/Actions";
 
 class SearchTermBox extends React.PureComponent {
     constructor(props) {
