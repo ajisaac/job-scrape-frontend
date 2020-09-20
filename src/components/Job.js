@@ -1,8 +1,8 @@
 import React from 'react';
-import './Job.css'
 import {connect} from "react-redux";
 import {updateJobState} from "../redux/actions/Actions";
 import TextareaAutosize from "react-textarea-autosize";
+import {Button} from "@material-ui/core"
 
 class Job extends React.Component {
   constructor(props) {
@@ -100,29 +100,29 @@ class Job extends React.Component {
           </div>
           <div className={"controls"}>
             {this.props.job.status !== "saved" &&
-            <button onClick={this.updateJobStatus} value={"saved"}
-                    className={"primary-btn"}>save</button>}
+            <Button onClick={this.updateJobStatus} value={"saved"}
+                    className={"primary-btn"}>save</Button>}
 
             {this.props.job.status !== "excluded" &&
-            <button onClick={this.updateJobStatus} value={"excluded"}
-                    className={"warning-btn"}>exclude</button>}
+            <Button onClick={this.updateJobStatus} value={"excluded"}
+                    className={"warning-btn"}>exclude</Button>}
 
             {this.props.job.status !== "applied" &&
-            <button onClick={this.updateJobStatus} value={"applied"}
-                    className={"success-btn"}>applied</button>}
+            <Button onClick={this.updateJobStatus} value={"applied"}
+                    className={"success-btn"}>applied</Button>}
 
             {this.props.job.status === "applied" &&
-            <button onClick={this.updateJobStatus}
+            <Button onClick={this.updateJobStatus}
                     value={"interviewing"}
-                    className={"success-btn"}>interview</button>}
+                    className={"success-btn"}>interview</Button>}
 
             {(this.props.job.status !== "new" && this.props.job.status !== "rejected") &&
-            <button onClick={this.updateJobStatus} value={"rejected"}
-                    className={"danger-btn"}>rejected</button>}
+            <Button onClick={this.updateJobStatus} value={"rejected"}
+                    className={"danger-btn"}>rejected</Button>}
 
             {this.props.job.status !== "ignored" &&
-            <button onClick={this.updateJobStatus}
-                    value={"ignored"}>ignored</button>}
+            <Button onClick={this.updateJobStatus}
+                    value={"ignored"}>ignored</Button>}
           </div>
         </div>
 
@@ -133,13 +133,9 @@ class Job extends React.Component {
 
 const actions = {
   updateJobState: updateJobState,
-//     updateJobSummary: updateJobSummary
 };
 
 const mapStateToProps = (state) => {
-  // return {
-  //     redstate: state.state
-  // };
   return {};
 };
 

@@ -1,48 +1,67 @@
-import React from 'react';
-import './App.css';
+import React from "react";
 import JobsPage from "./components/JobsPage";
-import {BrowserRouter as Router, Link, Route} from "react-router-dom";
-import {Switch} from "react-router";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import { Switch } from "react-router";
 import Batch from "./components/Batch";
+import Layout from "./components/Layout";
 
 class App extends React.Component {
   render() {
     return (
-        <Router>
-
-          <Switch>
-            <Route path={"/batch"}>
-              <Batch/>
-            </Route>
-            <Route path={"/all"}>
-              <JobsPage filter={"all"}/>
-            </Route>
-            <Route path={"/new"}>
-              <JobsPage filter={"new"}/>
-            </Route>
-            <Route path={"/saved"}>
-              <JobsPage filter={"saved"}/>
-            </Route>
-            <Route path={"/applied"}>
-              <JobsPage filter={"applied"}/>
-            </Route>
-            <Route path={"/interviewing"}>
-              <JobsPage filter={"interviewing"}/>
-            </Route>
-            <Route path={"/excluded"}>
-              <JobsPage filter={"excluded"}/>
-            </Route>
-            <Route path={"/rejected"}>
-              <JobsPage filter={"rejected"}/>
-            </Route>
-            <Route path={"/ignored"}>
-              <JobsPage filter={"ignored"}/>
-            </Route>
-            <Route path={"/"}>
-              <JobsPage filter={"all"}/>
-            </Route>
-          </Switch>
-        </Router>
+      <Router>
+        <Switch>
+          <Route path={"/batch"}>
+            <Layout>
+              <Batch />
+            </Layout>
+          </Route>
+          <Route path={"/all"}>
+            <Layout>
+              <JobsPage filter={"all"} />
+            </Layout>
+          </Route>
+          <Route path={"/new"}>
+            <Layout>
+              <JobsPage filter={"new"} />
+            </Layout>
+          </Route>
+          <Route path={"/saved"}>
+            <Layout>
+              <JobsPage filter={"saved"} />
+            </Layout>
+          </Route>
+          <Route path={"/applied"}>
+            <Layout>
+              <JobsPage filter={"applied"} />
+            </Layout>
+          </Route>
+          <Route path={"/interviewing"}>
+            <Layout>
+              <JobsPage filter={"interviewing"} />
+            </Layout>
+          </Route>
+          <Route path={"/excluded"}>
+            <Layout>
+              <JobsPage filter={"excluded"} />
+            </Layout>
+          </Route>
+          <Route path={"/rejected"}>
+            <Layout>
+              <JobsPage filter={"rejected"} />
+            </Layout>
+          </Route>
+          <Route path={"/ignored"}>
+            <Layout>
+              <JobsPage filter={"ignored"} />
+            </Layout>
+          </Route>
+          <Route path={"/"}>
+            <Layout>
+              <JobsPage filter={"all"} />
+            </Layout>
+          </Route>
+        </Switch>
+      </Router>
     );
   }
 }

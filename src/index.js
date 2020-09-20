@@ -9,6 +9,8 @@ import * as serviceWorker from './serviceWorker';
 import './index.css';
 import Reducers from "./redux/reducers/Reducers";
 
+import 'fontsource-roboto';
+
 import App from "./App";
 
 
