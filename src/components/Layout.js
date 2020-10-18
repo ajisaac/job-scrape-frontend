@@ -51,55 +51,55 @@ const useStyles = makeStyles((theme) => ({
 export default function Layout(props) {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" elevation={0} className={classes.appBar}>
-        <Toolbar variant="dense">
-          <Typography variant="h6" className={classes.title}>
-            {props.title} Jobs
-          </Typography>
-          <div className={classes.grow} />
-          <NavFilters></NavFilters>
-        </Toolbar>
-      </AppBar>
+      <div className={classes.root}>
+        <CssBaseline/>
+        <AppBar position="fixed" elevation={0} className={classes.appBar}>
+          <Toolbar variant="dense">
+            <Typography variant="h6" className={classes.title}>
+              {props.title} Jobs
+            </Typography>
+            <div className={classes.grow}/>
+            <NavFilters/>
+          </Toolbar>
+        </AppBar>
 
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <Toolbar variant="dense"/>
-        <div className={classes.drawerContainer}>
-          <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </div>
-      </Drawer>
+        <Drawer
+            className={classes.drawer}
+            variant="permanent"
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+        >
+          <Toolbar variant="dense"/>
+          <div className={classes.drawerContainer}>
+            <List>
+              {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+                  <ListItem button key={text}>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                    </ListItemIcon>
+                    <ListItemText primary={text}/>
+                  </ListItem>
+              ))}
+            </List>
+            <Divider/>
+            <List>
+              {["All mail", "Trash", "Spam"].map((text, index) => (
+                  <ListItem button key={text}>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
+                    </ListItemIcon>
+                    <ListItemText primary={text}/>
+                  </ListItem>
+              ))}
+            </List>
+          </div>
+        </Drawer>
 
-      <main className={classes.content}>
-        <Toolbar />
-        {props.children}
-      </main>
-    </div>
+        <main className={classes.content}>
+          <Toolbar/>
+          {props.children}
+        </main>
+      </div>
   );
 }

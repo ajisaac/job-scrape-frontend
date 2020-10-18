@@ -14,8 +14,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 14,
     marginTop: 8,
     marginBottom: 8,
-    backgroundColor: "#eaf0f5db",
-    color: "#0d1013d1",
+    color: "#3c4146",
   },
 }));
 
