@@ -1,7 +1,7 @@
 import React from "react";
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 import Job from "../job/Job";
-import { Card, Button, makeStyles } from "@material-ui/core";
+import {Card, Button, makeStyles} from "@material-ui/core";
 import CompanyBar from "./CompanyBar";
 
 import {
@@ -23,12 +23,12 @@ function Company(props) {
   const company = props.company;
   const classes = useStyles();
   return (
-    <Card key={company.id} elevation="1" className={classes.root}>
-      <CompanyBar company={company} />
-      {company.jobPostings.map((job) => {
-        return <Job key={job.id} job={job} />;
-      })}
-    </Card>
+      <Card key={company.id} elevation={1} className={classes.root}>
+        <CompanyBar company={company}/>
+        {company.jobPostings.map((job) => {
+          return <Job key={job.id} job={job}/>;
+        })}
+      </Card>
   );
 }
 
@@ -37,4 +37,6 @@ const actions = {
   blacklistCompany: blacklistCompany,
 };
 
-export default connect((state) => {}, actions)(Company);
+export default connect((state) => {
+  return state;
+}, actions)(Company);

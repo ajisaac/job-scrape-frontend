@@ -14,13 +14,13 @@ let getLinks = () => {
     "all",
   ];
   return statuses.map((status) => {
-    return <StatusLink filter={status}/>;
+    return <StatusLink filter={status} key={status}/>;
   });
 };
 
 export default function NavFilters(props) {
   return (
-    <Breadcrumbs color="white">
+    <Breadcrumbs color="secondary">
       {getLinks()}
     </Breadcrumbs>
   );

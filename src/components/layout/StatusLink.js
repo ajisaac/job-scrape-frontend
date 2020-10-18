@@ -12,7 +12,7 @@ function StatusLink(props) {
   let to = "/" + props.filter;
   let name = props.filter[0].toUpperCase() + props.filter.substring(1);
   return (
-    <Typography variant="h7" color="white">
+    <Typography variant="h6" color="secondary">
       <Link className={classes.link} to={to}>
         {name}
       </Link>

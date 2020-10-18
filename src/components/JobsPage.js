@@ -49,7 +49,7 @@ class JobsPage extends React.PureComponent {
           <Grid container>
             {this.props.companies.filteredCompanies.map((company) => {
               return (
-                <Grid item>
+                <Grid item key={company.id}>
                   <Company
                     key={company.id}
                     company={company}

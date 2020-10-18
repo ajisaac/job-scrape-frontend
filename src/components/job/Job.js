@@ -1,46 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
 import { updateJobState } from "../../redux/actions/Actions";
-// import TextareaAutosize from "react-textarea-autosize";
-import { Button } from "@material-ui/core";
 import UpdateStatuses from "./UpdateStatuses";
 
 class Job extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      editing: false,
-      textAreaValue: "",
-      textAreaRows: 0,
-    };
+
   }
 
-  updateJobStatus = (e) => {
-    this.props.updateJobState(this.props.job.id, e.target.value);
+  updateJobStatus = (value) => {
+    this.props.updateJobState(this.props.job.id, value);
   };
 
-  setEditingTrue = () => {
-    if (this.state.textAreaValue === "") {
-      this.setState({ textAreaValue: this.props.job.summary });
-    }
-    let num = this.state.textAreaValue.split("\n").length;
-    this.setState({ textAreaRows: num });
-    this.setState({ editing: true });
-  };
 
-  setEditingFalse = () => {
-    this.setState({ editing: false });
-  };
-
-  updateJobSummary = (e) => {
-    this.props.updateJobSummary(this.state.textAreaValue, this.props.job.id);
-    this.props.job.summary = this.state.textAreaValue;
-    this.setEditingFalse();
-  };
-
-  textAreaUpdated = (e) => {
-    this.setState({ textAreaValue: e.target.value });
-  };
 
   parseSummary = (summary) => {
     if (!summary) {
@@ -71,7 +44,7 @@ class Job extends React.Component {
             {job.jobTitle} - {job.location}
           </a>
         </div>
-        <UpdateStatuses status={job.status} />
+        <UpdateStatuses status={job.status} updateJobStatus={this.updateJobStatus}/>
         <div>
           <div className={"summary"}>
             {job.summary ? this.parseSummary(job.summary) : ""}
@@ -90,7 +63,7 @@ const actions = {
 };
 
 const mapStateToProps = (state) => {
-  return {};
+  return state;
 };
 
 export default connect(mapStateToProps, actions)(Job);

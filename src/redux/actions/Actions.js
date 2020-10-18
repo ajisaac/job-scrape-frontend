@@ -45,6 +45,7 @@ export const fetchBlacklistedCompanies = () => dispatch => {
 };
 
 export const updateJobState = (jobId, state) => dispatch => {
+  console.log("updateJobState - " + jobId + " - " + state + "");
   axios.create({
     baseURL: baseUrl
   }).put('/jobs/status/' + jobId + '/' + state).then(

@@ -53,7 +53,7 @@ export default function Layout(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" elevation="0" className={classes.appBar}>
+      <AppBar position="fixed" elevation={0} className={classes.appBar}>
         <Toolbar variant="dense">
           <Typography variant="h6" className={classes.title}>
             {props.title} Jobs
