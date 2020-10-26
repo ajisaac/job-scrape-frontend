@@ -16,7 +16,7 @@ import InboxIcon from "@material-ui/icons/Inbox";
 import MailIcon from "@material-ui/icons/Mail";
 import ListItemText from "@material-ui/core/ListItemText";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import NavFilters from "./layout/NavFilters";
+import {Link} from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -58,8 +58,6 @@ export default function Layout(props) {
             <Typography variant="h6" className={classes.title}>
               {props.title} Jobs
             </Typography>
-            <div className={classes.grow}/>
-            <NavFilters/>
           </Toolbar>
         </AppBar>
 
@@ -73,22 +71,17 @@ export default function Layout(props) {
           <Toolbar variant="dense"/>
           <div className={classes.drawerContainer}>
             <List>
-              {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-                  <ListItem button key={text}>
-                    <ListItemIcon>
-                      {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                    </ListItemIcon>
-                    <ListItemText primary={text}/>
-                  </ListItem>
-              ))}
-            </List>
-            <Divider/>
-            <List>
-              {["All mail", "Trash", "Spam"].map((text, index) => (
-                  <ListItem button key={text}>
-                    <ListItemIcon>
-                      {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                    </ListItemIcon>
+              {[
+                "New",
+                "Saved",
+                "Applied",
+                "Interviewing",
+                "Excluded",
+                "Rejected",
+                "Ignored",
+                "All"].map((text, index) => (
+                  <ListItem button key={index} component={Link}
+                            to={"/" + text.toLocaleLowerCase()}>
                     <ListItemText primary={text}/>
                   </ListItem>
               ))}

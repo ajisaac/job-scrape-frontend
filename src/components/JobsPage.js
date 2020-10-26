@@ -7,7 +7,6 @@ import {
 } from "../redux/actions/Actions";
 import Company from "./company/Company";
 import { fetchCompaniesFiltered } from "../redux/reducers/CompanyReducer";
-import StatusLink from "./layout/StatusLink";
 import BlackListBox from "./sidebox/BlackListBox";
 import { Grid } from "@material-ui/core";
 
