@@ -8,15 +8,12 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Drawer from "@material-ui/core/Drawer";
-import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import InboxIcon from "@material-ui/icons/Inbox";
-import MailIcon from "@material-ui/icons/Mail";
 import ListItemText from "@material-ui/core/ListItemText";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import {Link} from "react-router-dom";
+import {Divider} from "@material-ui/core";
 
 const drawerWidth = 240;
 
@@ -45,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     paddingTop: 6,
     paddingRight: 240,
+    maxWidth: 1200,
+    margin: "auto",
+
   },
 }));
 
@@ -80,6 +80,17 @@ export default function Layout(props) {
                 "Rejected",
                 "Ignored",
                 "All"].map((text, index) => (
+                  <ListItem button key={index} component={Link}
+                            to={"/" + text.toLocaleLowerCase()}>
+                    <ListItemText primary={text}/>
+                  </ListItem>
+              ))}
+            </List>
+            <Divider/>
+            <List>
+              {[
+                "Scrape",
+                "AddSingleJob"].map((text, index) => (
                   <ListItem button key={index} component={Link}
                             to={"/" + text.toLocaleLowerCase()}>
                     <ListItemText primary={text}/>

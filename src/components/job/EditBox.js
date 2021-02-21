@@ -8,15 +8,15 @@ state = {
 
 setEditingTrue = () => {
   if (this.state.textAreaValue === "") {
-    this.setState({ textAreaValue: this.props.job.summary });
+    this.setState({textAreaValue: this.props.job.summary});
   }
   let num = this.state.textAreaValue.split("\n").length;
-  this.setState({ textAreaRows: num });
-  this.setState({ editing: true });
+  this.setState({textAreaRows: num});
+  this.setState({editing: true});
 };
 
 setEditingFalse = () => {
-  this.setState({ editing: false });
+  this.setState({editing: false});
 };
 
 updateJobSummary = (e) => {
@@ -26,5 +26,5 @@ updateJobSummary = (e) => {
 };
 
 textAreaUpdated = (e) => {
-  this.setState({ textAreaValue: e.target.value });
+  this.setState({textAreaValue: e.target.value});
 };

@@ -3,8 +3,10 @@ import JobsPage from "./components/JobsPage";
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import {Switch} from "react-router";
 import Layout from "./components/Layout";
+import ScrapePage from "./components/scrape/ScrapePage";
 
 class App extends React.Component {
+
   render() {
     return (
         <Router>
@@ -52,6 +54,11 @@ class App extends React.Component {
             <Route path={"/ignored"}>
               <Layout title="Ignored">
                 <JobsPage filter={"ignored"}/>
+              </Layout>
+            </Route>
+            <Route path={"/scrape"}>
+              <Layout title="Scrape">
+                <ScrapePage/>
               </Layout>
             </Route>
             <Route path={"/"}>

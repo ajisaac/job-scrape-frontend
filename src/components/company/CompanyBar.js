@@ -12,13 +12,18 @@ const useStyles = makeStyles((theme) => ({
   bar: {
     margin: 0,
   },
+  companyName: {
+    border: "1px solid",
+    padding: 9
+  }
 }));
 
 function CompanyBar(props) {
   const company = props.company;
   const classes = useStyles();
   return (
-      <div>
+      <div className={classes.companyName}>
+
         <CompanyLabels labels={company.labels}/>
         <Grid
             container

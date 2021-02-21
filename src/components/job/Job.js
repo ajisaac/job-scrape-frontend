@@ -2,11 +2,19 @@ import React from "react";
 import {connect} from "react-redux";
 import {updateJobState} from "../../redux/actions/Actions";
 import UpdateStatuses from "./UpdateStatuses";
+import withStyles from "@material-ui/core/styles/withStyles";
+
+const styles = theme => ({
+  root: {
+    padding: 32,
+    marginTop: 14,
+    border: "2px solid black"
+  }
+});
 
 class Job extends React.Component {
   constructor(props) {
     super(props);
-
   }
 
   updateJobStatus = (value) => {
@@ -34,10 +42,11 @@ class Job extends React.Component {
 
   render() {
     const job = this.props.job;
+    const classes = this.props.classes;
     return (
-        <div>
+        <div className={classes.root}>
           <div>
-            <div>{job.status}</div>
+            <span>{job.status} - </span>
             <a target="_blank" rel="noreferrer noopener" href={job.href}>
               {job.jobTitle} - {job.location}
             </a>
@@ -64,4 +73,6 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-export default connect(mapStateToProps, actions)(Job);
+export default connect(mapStateToProps, actions)(
+    withStyles(styles)(Job)
+);
