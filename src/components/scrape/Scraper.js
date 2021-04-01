@@ -4,6 +4,7 @@ import {Button} from "@material-ui/core";
 import Axios from "axios";
 import ScrollingStatusBox from "./ScrollingStatusBox";
 import SockJS from "sockjs-client/dist/sockjs"
+import {Client, Message} from "@stomp/stompjs"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -130,10 +131,19 @@ const stopScrape = (id) => {
 
 export default function Scraper(props) {
 
-  let ws = new SockJS("http://localhost:8080/app");
-  ws.onopen = () => {
-    console.log("hellosockets");
-  }
+  const ws = new Client({
+    brokerURL: "ws://localhost:8080/websocket"
+  });
+
+  ws.onConnect = function (frame) {
+    console.log(frame);
+  };
+
+  ws.onStompError = function (frame) {
+    console.log(frame);
+  };
+
+  ws.activate();
 
   const classes = useStyles();
   return (
