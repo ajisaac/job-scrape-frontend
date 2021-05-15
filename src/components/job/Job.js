@@ -1,78 +1,44 @@
-import React from "react";
-import {connect} from "react-redux";
-import {updateJobState} from "../../redux/actions/Actions";
-import UpdateStatuses from "./UpdateStatuses";
-import withStyles from "@material-ui/core/styles/withStyles";
+import React from "react"
+import {connect} from "react-redux"
+import {updateJobState} from "../../redux/actions/Actions"
+import UpdateStatuses from "./UpdateStatuses"
+import makeStyles from "@material-ui/core/styles/makeStyles"
 
-const styles = theme => ({
+const styles = makeStyles(() => ({
   root: {
     padding: 32,
     marginTop: 14,
     border: "2px solid black"
   }
-});
+}))
 
-class Job extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+function Job(props) {
+  const {date, description, href, job_title, location, status} = props.job
+  const {root} = styles()
 
-  updateJobStatus = (value) => {
-    this.props.updateJobState(this.props.job.id, value);
-  };
-
-  parseSummary = (summary) => {
-    if (!summary) {
-      return <div/>;
-    }
-    let ret = summary.split("\n");
-    return (
+  return (
+      <div className={root}>
         <div>
-          {ret.map((r, i) => {
-            return (
-                <div key={i}>
-                  {r}
-                  <br/>
-                </div>
-            );
-          })}
+          <span>{status} - </span>
+          <a target="_blank" rel="noreferrer noopener" href={href}>
+            {job_title}{location && (" - " + location)}
+          </a>
         </div>
-    );
-  };
-
-  render() {
-    const job = this.props.job;
-    const classes = this.props.classes;
-    return (
-        <div className={classes.root}>
-          <div>
-            <span>{job.status} - </span>
-            <a target="_blank" rel="noreferrer noopener" href={job.href}>
-              {job.jobTitle} - {job.location}
-            </a>
+        <UpdateStatuses status={status}
+                        updateJobStatus={value => {
+                          props.updateJobState(props.job.id, value)
+                        }}/>
+        <div>
+          <div className={"summary"}>
+            <div dangerouslySetInnerHTML={{__html: description}}/>
           </div>
-          <UpdateStatuses status={job.status}
-                          updateJobStatus={this.updateJobStatus}/>
-          <div>
-            <div className={"summary"}>
-              <div dangerouslySetInnerHTML={{__html: job.description}}/>
-            </div>
-          </div>
-          <div>{job.date}</div>
-          <hr/>
         </div>
-    );
-  }
+        <div>{date}</div>
+        <hr/>
+      </div>
+  )
 }
 
-const actions = {
+export default connect(state => state, {
   updateJobState: updateJobState,
-};
-
-const mapStateToProps = (state) => {
-  return state;
-};
-
-export default connect(mapStateToProps, actions)(
-    withStyles(styles)(Job)
-);
+})(Job)

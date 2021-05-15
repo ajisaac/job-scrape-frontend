@@ -1,13 +1,12 @@
-import React from "react";
-import {connect} from "react-redux";
-import Job from "../job/Job";
-import {Card, Button, makeStyles} from "@material-ui/core";
-import CompanyBar from "./CompanyBar";
+import React from "react"
+import {connect} from "react-redux"
+import Job from "../job/Job"
+import {Card, makeStyles} from "@material-ui/core"
+import CompanyBar from "./CompanyBar"
 
 import {
-  blacklistCompany,
   updateMultipleJobState,
-} from "../../redux/actions/Actions";
+} from "../../redux/actions/Actions"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,26 +15,21 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 8,
     color: "#3c4146",
   },
-}));
+}))
 
 function Company(props) {
-  const company = props.company;
-  const classes = useStyles();
+  const {company} = props
+  const {root} = useStyles()
   return (
-      <Card key={company.id} elevation={1} className={classes.root}>
+      <Card key={company.id} elevation={1} className={root}>
         <CompanyBar company={company}/>
-        {company.jobPostings.map((job) => {
-          return <Job key={job.id} job={job}/>;
-        })}
+        {company.jobPostings.map(job =>
+            <Job key={job.id} job={job}/>
+        )}
       </Card>
-  );
+  )
 }
 
-const actions = {
-  updateMultipleJobState: updateMultipleJobState,
-  blacklistCompany: blacklistCompany,
-};
-
 export default connect((state) => {
-  return state;
-}, actions)(Company);
+  return state
+}, {updateMultipleJobState: updateMultipleJobState,})(Company)

@@ -7,16 +7,11 @@ import {
   JOB_STATES_UPDATED,
   JOB_STATES_UPDATED_ERROR,
   UPDATE_SEARCH_FILTERS
-} from "../actions/ActionTypes";
-import _ from "lodash";
+} from "../actions/ActionTypes"
+import _ from "lodash"
 
 const initialStore = {
   companies: [],
-  filters: {
-    companyFilter: "",
-    textFilter: "",
-    titleFilter: ""
-  },
   blacklistedCompanies: []
 }
 
@@ -24,59 +19,33 @@ export function CompanyReducer(store = initialStore, action) {
   switch (action.type) {
 
     case FETCH_ALL_COMPANIES: {
-      let retStore = Object.assign({}, store);
-      retStore.companies = action.payload;
-      return retStore;
+      let retStore = Object.assign({}, store)
+      retStore.companies = action.payload
+      return retStore
     }
-
     case FETCH_ALL_COMPANIES_ERROR: {
-      return store;
+      return store
     }
-
     case JOB_STATE_UPDATED: {
-      let job = action.payload;
-      let updatedCompanies = updateMultipleJobStatus([job], store.companies);
-      return Object.assign({}, {...store, companies: updatedCompanies});
+      let job = action.payload
+      let updatedCompanies = updateMultipleJobStatus([job], store.companies)
+      return Object.assign({}, {...store, companies: updatedCompanies})
     }
-
-    case JOB_STATES_UPDATED: {
-      let jobs = action.payload;
-      let updatedCompanies = updateMultipleJobStatus(jobs, store.companies);
-      return Object.assign({}, {...store, companies: updatedCompanies});
-    }
-
-    case JOB_STATES_UPDATED_ERROR: {
-      return store;
-    }
-
-    case UPDATE_SEARCH_FILTERS: {
-      let retStore = Object.assign({}, store);
-      retStore.filters = action.payload;
-      return retStore;
-    }
-
     case JOB_STATE_UPDATED_ERROR: {
-      return store;
+      return store
+    }
+    case JOB_STATES_UPDATED: {
+      let jobs = action.payload
+      let updatedCompanies = updateMultipleJobStatus(jobs, store.companies)
+      return Object.assign({}, {...store, companies: updatedCompanies})
+    }
+    case JOB_STATES_UPDATED_ERROR: {
+      return store
     }
 
-    case FETCH_BLACKLISTED_COMPANIES: {
-      let retStore = Object.assign({}, store);
-      retStore.blacklistedCompanies = action.payload;
-      return retStore;
-    }
-
-    case BLACKLIST_COMPANY: {
-      let retStore = Object.assign({}, store);
-      retStore.blacklistedCompanies = action.payload;
-      return retStore;
-    }
-
-    case BLACKLIST_COMPANY_ERROR: {
-      return store;
-    }
 
     default: {
-      return store;
+      return store
     }
   }
 }
@@ -85,74 +54,36 @@ export function fetchCompaniesFiltered(state, statusFilter) {
   if (!state.companies.companies) return {
     companies: [],
     filteredCompanies: [],
-    blacklistedCompanies: [],
     numOfJobs: 0,
     numOfCompanies: 0,
-    filters: {
-      companyFilter: "",
-      textFilter: "",
-      titleFilter: ""
-    }
-  };
+  }
 
-  let updatedCompanies = _.cloneDeep(state.companies.companies);
-  updatedCompanies = updatedCompanies.filter(company =>
-      !state.companies.blacklistedCompanies.includes(company.name)
-  );
+  let updatedCompanies = _.cloneDeep(state.companies.companies)
 
   // apply labels to all jobs before filtering
-  updatedCompanies = applyLabels(updatedCompanies);
-
-  // filter companies search
-  if (state.companies.filters.companyFilter && state.companies.filters.companyFilter !== "") {
-    updatedCompanies = updatedCompanies.filter(company => {
-      return company.name.toLowerCase()
-          .includes(state.companies.filters.companyFilter.toLowerCase());
-    });
-  }
+  updatedCompanies = applyLabels(updatedCompanies)
 
   updatedCompanies = updatedCompanies.map(company => {
     if (!company.jobPostings) {
-      return company;
+      return company
     }
-
     if (statusFilter !== "all") {
       company.jobPostings = company.jobPostings
           .filter(jobPosting => {
-            return jobPosting.status === statusFilter;
-          });
+            return jobPosting.status === statusFilter
+          })
     }
-
-    if (state.companies.filters.titleFilter && state.companies.filters.titleFilter !== "") {
-      company.jobPostings = company.jobPostings
-          .filter(jobPosting => {
-            if (!jobPosting.jobTitle) {
-              return true;
-            }
-            return jobPosting.jobTitle.toLowerCase()
-                .includes(state.companies.filters.titleFilter.toLowerCase());
-          });
-    }
-
-    if (state.companies.filters.textFilter && state.companies.filters.textFilter !== "") {
-      company.jobPostings = company.jobPostings
-          .filter(jobPosting => {
-            if (!jobPosting.description) {
-              return true;
-            }
-            return jobPosting.description.toLowerCase()
-                .includes(state.companies.filters.textFilter.toLowerCase());
-          });
-    }
-    return company;
+    return company
   }).filter(company => {
-    return company.jobPostings.length > 0;
-  });
+    return company.jobPostings.length > 0
+  })
 
-  let numJobPostings = getNumOfJobPostings(updatedCompanies);
-  let numCompanies = updatedCompanies.length;
+  let numJobPostings = getNumOfJobPostings(updatedCompanies)
+  let numCompanies = updatedCompanies.length
+
+  // only want to show 10 companies worth of postings at a time
   if (updatedCompanies.length > 10) {
-    updatedCompanies = updatedCompanies.slice(0, 10);
+    updatedCompanies = updatedCompanies.slice(0, 10)
   }
 
   return {
@@ -162,11 +93,11 @@ export function fetchCompaniesFiltered(state, statusFilter) {
     numOfJobs: numJobPostings,
     numOfCompanies: numCompanies,
     filters: _.cloneDeep(state.companies.filters)
-  };
+  }
 }
 
-export function getBlacklistedCompanies(state){
-  return state.companies.blacklistedCompanies;
+export function getBlacklistedCompanies(state) {
+  return state.companies.blacklistedCompanies
 }
 
 function updateMultipleJobStatus(returnedJobs, companies) {
@@ -174,90 +105,90 @@ function updateMultipleJobStatus(returnedJobs, companies) {
   // companies is the companies array from our store
   // tod o refactor into functions or a separate module
 
-  let updatedCompanies = [];
+  let updatedCompanies = []
   companiesLoop:
       for (let i = 0; i < companies.length; i++) {
         if (!shouldUpdateCompany(returnedJobs, companies[i].name)) {
-          updatedCompanies.push(companies[i]);
-          continue companiesLoop;
+          updatedCompanies.push(companies[i])
+          continue companiesLoop
         }
 
-        let updatedCompany = Object.assign({}, companies[i]);
-        let updatedJobPostings = [];
+        let updatedCompany = Object.assign({}, companies[i])
+        let updatedJobPostings = []
 
         jobPostingsLoop:
             for (let j = 0; j < companies[i].jobPostings.length; j++) {
               if (!shouldUpdateJobPosting(returnedJobs, companies[i].jobPostings[j])) {
-                updatedJobPostings.push(companies[i].jobPostings[j]);
-                continue jobPostingsLoop;
+                updatedJobPostings.push(companies[i].jobPostings[j])
+                continue jobPostingsLoop
               }
 
               for (let k = 0; k < returnedJobs.length; k++) {
                 if (returnedJobs[k].id === companies[i].jobPostings[j].id) {
-                  updatedJobPostings.push(returnedJobs[k]);
-                  continue jobPostingsLoop;
+                  updatedJobPostings.push(returnedJobs[k])
+                  continue jobPostingsLoop
                 }
               }
             }
 
-        updatedCompany.jobPostings = updatedJobPostings;
-        updatedCompanies.push(updatedCompany);
+        updatedCompany.jobPostings = updatedJobPostings
+        updatedCompanies.push(updatedCompany)
       }
   return updatedCompanies
 }
 
 function applyLabels(companies) {
   companies.map(company => {
-    const jobPostings = company.jobPostings;
-    let labelsSet = new Set();
+    const jobPostings = company.jobPostings
+    let labelsSet = new Set()
     for (let i in jobPostings) {
       if (!labelsSet.has(jobPostings[i].status)) {
-        labelsSet.add(jobPostings[i].status);
+        labelsSet.add(jobPostings[i].status)
       }
     }
-    company.labels = orderLabels(labelsSet);
-    return company;
-  });
-  return companies;
+    company.labels = orderLabels(labelsSet)
+    return company
+  })
+  return companies
 }
 
 function orderLabels(labelsSet) {
-  const orderedLabels = ["new", "saved", "applied", "interviewing", "excluded", "rejected", "ignored"];
-  let retLabels = [];
+  const orderedLabels = ["new", "saved", "applied", "interviewing", "excluded", "rejected", "ignored"]
+  let retLabels = []
   for (let i in orderedLabels) {
     if (labelsSet.has(orderedLabels[i])) {
-      retLabels.push(orderedLabels[i]);
+      retLabels.push(orderedLabels[i])
     }
   }
-  return retLabels;
+  return retLabels
 }
 
 function getNumOfJobPostings(companies) {
   if (companies.length === 0) {
-    return 0;
+    return 0
   } else {
     return companies
         .map(company => company.jobPostings.length)
         .reduce((total, length) => {
-          return total + length;
-        });
+          return total + length
+        })
   }
 }
 
 function shouldUpdateJobPosting(jobs, jobPosting) {
   for (let j in jobs) {
     if (jobs[j].id === jobPosting.id) {
-      return true;
+      return true
     }
   }
-  return false;
+  return false
 }
 
 function shouldUpdateCompany(jobs, companyName) {
   for (let j in jobs) {
     if (jobs[j].company === companyName) {
-      return true;
+      return true
     }
   }
-  return false;
+  return false
 }

@@ -1,21 +1,19 @@
-import React from "react";
-import {Button, makeStyles} from "@material-ui/core";
+import React from "react"
+import {Button, makeStyles} from "@material-ui/core"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   button: {},
-}));
+}))
 
 export default function UpdateStatuses(props) {
-  const classes = useStyles();
-  const updateJobStatus = props.updateJobStatus;
+  const {button} = useStyles()
+  const {updateJobStatus} = props
   return (
       <div>
         {props.status !== "saved" && (
             <Button
-                className={classes.button}
-                onClick={() => {
-                  updateJobStatus("saved")
-                }}
+                className={button}
+                onClick={() => updateJobStatus("saved")}
                 value={"saved"}
             >
               save
@@ -24,10 +22,8 @@ export default function UpdateStatuses(props) {
 
         {props.status !== "excluded" && (
             <Button
-                className={classes.button}
-                onClick={() => {
-                  updateJobStatus("excluded")
-                }}
+                className={button}
+                onClick={() => updateJobStatus("excluded")}
                 value={"excluded"}
             >
               exclude
@@ -36,10 +32,8 @@ export default function UpdateStatuses(props) {
 
         {props.status !== "applied" && (
             <Button
-                className={classes.button}
-                onClick={() => {
-                  updateJobStatus("applied")
-                }}
+                className={button}
+                onClick={() => updateJobStatus("applied")}
                 value={"applied"}
             >
               applied
@@ -48,10 +42,8 @@ export default function UpdateStatuses(props) {
 
         {props.status === "applied" && (
             <Button
-                className={classes.button}
-                onClick={() => {
-                  updateJobStatus("interviewing")
-                }}
+                className={button}
+                onClick={() => updateJobStatus("interviewing")}
                 value={"interviewing"}
             >
               interview
@@ -60,10 +52,8 @@ export default function UpdateStatuses(props) {
 
         {props.status !== "new" && props.status !== "rejected" && (
             <Button
-                className={classes.button}
-                onClick={() => {
-                  updateJobStatus("rejected")
-                }}
+                className={button}
+                onClick={() => updateJobStatus("rejected")}
                 value={"rejected"}
             >
               rejected
@@ -72,15 +62,13 @@ export default function UpdateStatuses(props) {
 
         {props.status !== "ignored" && (
             <Button
-                className={classes.button}
-                onClick={() => {
-                  updateJobStatus("ignored")
-                }}
+                className={button}
+                onClick={() => updateJobStatus("ignored")}
                 value={"ignored"}
             >
               ignored
             </Button>
         )}
       </div>
-  );
+  )
 }

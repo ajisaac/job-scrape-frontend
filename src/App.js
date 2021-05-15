@@ -1,9 +1,9 @@
-import React from "react";
-import JobsPage from "./components/JobsPage";
-import {BrowserRouter as Router, Link, Route} from "react-router-dom";
-import {Switch} from "react-router";
-import Layout from "./components/Layout";
-import ScrapePage from "./components/scrape/ScrapePage";
+import React from "react"
+import JobsPage from "./components/JobsPage"
+import {BrowserRouter as Router, Link, Route} from "react-router-dom"
+import {Switch} from "react-router"
+import Layout from "./components/Layout"
+import ScrapePage from "./components/scrape/ScrapePage"
 
 class App extends React.Component {
 
@@ -11,11 +11,6 @@ class App extends React.Component {
     return (
         <Router>
           <Switch>
-            {/* <Route path={"/batch"}>
-            <Layout>
-              <Batch />
-            </Layout>
-          </Route> */}
             <Route path={"/all"}>
               <Layout title="All">
                 <JobsPage filter={"all"}/>
@@ -68,8 +63,8 @@ class App extends React.Component {
             </Route>
           </Switch>
         </Router>
-    );
+    )
   }
 }
 
-export default App;
+export default App

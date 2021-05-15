@@ -1,14 +1,9 @@
-import React from "react";
-import {connect} from "react-redux";
-import {Grid, Button, makeStyles} from "@material-ui/core";
+import React from "react"
+import {Grid, Button, makeStyles} from "@material-ui/core"
 
-import {
-  blacklistCompany,
-  updateMultipleJobState,
-} from "../../redux/actions/Actions";
-import CompanyLabels from "./CompanyLabels";
+import CompanyLabels from "./CompanyLabels"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   bar: {
     margin: 0,
   },
@@ -16,42 +11,25 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid",
     padding: 9
   }
-}));
+}))
 
 function CompanyBar(props) {
-  const company = props.company;
-  const classes = useStyles();
+  const {id, labels, name} = props.company
+  const {bar, companyName} = useStyles()
   return (
-      <div className={classes.companyName}>
-
-        <CompanyLabels labels={company.labels}/>
+      <div className={companyName}>
+        <CompanyLabels labels={labels}/>
         <Grid
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-            key={company.id}
+            container direction="row" justify="space-between"
+            alignItems="center" key={id}
         >
-
-          <h3 className={classes.bar}>
-            {company.name}
-
-          </h3>
-          <h3 className={classes.bar}>
-            <Button value={company.name}>blacklist</Button>
+          <h3 className={bar}> {name} </h3>
+          <h3 className={bar}>
+            <Button value={name}>blacklist</Button>
           </h3>
         </Grid>
       </div>
-  );
+  )
 }
 
-const actions = {
-  updateMultipleJobState: updateMultipleJobState,
-  blacklistCompany: blacklistCompany,
-};
-
-export default connect((state, props) => {
-  return state;
-  // console.log(state);
-  // console.log(props);
-}, actions)(CompanyBar);
+export default CompanyBar
