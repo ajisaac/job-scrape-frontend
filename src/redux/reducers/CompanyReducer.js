@@ -133,9 +133,9 @@ function applyLabels(companies) {
   companies.map(company => {
     const jobPostings = company.jobPostings
     let labelsSet = new Set()
-    for (let i in jobPostings) {
-      if (!labelsSet.has(jobPostings[i].status)) {
-        labelsSet.add(jobPostings[i].status)
+    for (let jp of jobPostings) {
+      if (!labelsSet.has(jp.status)) {
+        labelsSet.add(jp.status)
       }
     }
     company.labels = orderLabels(labelsSet)
@@ -147,9 +147,9 @@ function applyLabels(companies) {
 function orderLabels(labelsSet) {
   const orderedLabels = ["new", "saved", "applied", "interviewing", "excluded", "rejected", "ignored"]
   let retLabels = []
-  for (let i in orderedLabels) {
-    if (labelsSet.has(orderedLabels[i])) {
-      retLabels.push(orderedLabels[i])
+  for (let label of orderedLabels) {
+    if (labelsSet.has(label)) {
+      retLabels.push(label)
     }
   }
   return retLabels
@@ -161,24 +161,24 @@ function getNumOfJobPostings(companies) {
   } else {
     return companies
         .map(company => company.jobPostings.length)
-        .reduce((total, length) => {
-          return total + length
-        })
+        .reduce((total, length) => total + length)
   }
 }
 
+// what is ths?
 function shouldUpdateJobPosting(jobs, jobPosting) {
-  for (let j in jobs) {
-    if (jobs[j].id === jobPosting.id) {
+  for (let j of jobs) {
+    if (j.id === jobPosting.id) {
       return true
     }
   }
   return false
 }
 
+// what is this?
 function shouldUpdateCompany(jobs, companyName) {
-  for (let j in jobs) {
-    if (jobs[j].company === companyName) {
+  for (let j of jobs) {
+    if (j.company === companyName) {
       return true
     }
   }
