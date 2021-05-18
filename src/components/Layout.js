@@ -1,38 +1,46 @@
 // The layout includes our navigation menu as well as our
 // Header (AppBar). We pass in the children we want to render
 // here.
-import React from "react";
+import React from "react"
 
-import Typography from "@material-ui/core/Typography";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import {Link} from "react-router-dom";
-import {Divider} from "@material-ui/core";
+import Typography from "@material-ui/core/Typography"
+import AppBar from "@material-ui/core/AppBar"
+import Toolbar from "@material-ui/core/Toolbar"
+import makeStyles from "@material-ui/core/styles/makeStyles"
+import Drawer from "@material-ui/core/Drawer"
+import List from "@material-ui/core/List"
+import ListItem from "@material-ui/core/ListItem"
+import ListItemText from "@material-ui/core/ListItemText"
+import CssBaseline from "@material-ui/core/CssBaseline"
+import {Link} from "react-router-dom"
+import {Divider} from "@material-ui/core"
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    backgroundColor: "#f0ece7",
+    color: "black"
   },
   grow: {
     flexGrow: 1,
   },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
+  title: {
+    textAlign: "center",
+    marginBottom: "18px"
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+    backgroundColor: "#f0ece7",
+    border: "none",
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: "#f0ece7",
+    border: "none",
+    // borderRight: "1px solid black",
   },
   drawerContainer: {
     overflow: "auto",
@@ -44,22 +52,16 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 240,
     maxWidth: 1200,
     margin: "auto",
+    // borderLeft: "1px solid black",
 
   },
-}));
+}))
 
 export default function Layout(props) {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
       <div className={classes.root}>
-        <CssBaseline/>
-        <AppBar position="fixed" elevation={0} className={classes.appBar}>
-          <Toolbar variant="dense">
-            <Typography variant="h6" className={classes.title}>
-              {props.title} Jobs
-            </Typography>
-          </Toolbar>
-        </AppBar>
+        {/*<CssBaseline/>*/}
 
         <Drawer
             className={classes.drawer}
@@ -69,6 +71,10 @@ export default function Layout(props) {
             }}
         >
           <Toolbar variant="dense"/>
+          <Typography variant="h6" className={classes.title}>
+            {props.title} Jobs
+          </Typography>
+          <Divider/>
           <div className={classes.drawerContainer}>
             <List>
               {[
@@ -105,5 +111,5 @@ export default function Layout(props) {
           {props.children}
         </main>
       </div>
-  );
+  )
 }

@@ -3,6 +3,7 @@ body {
     font-family: 'Roboto', Helvetica, 'Helvetica Neue', sans-serif, 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #f0ece7;
 }
 
 code {

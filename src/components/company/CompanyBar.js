@@ -4,30 +4,38 @@ import {Grid, Button, makeStyles} from "@material-ui/core"
 import CompanyLabels from "./CompanyLabels"
 
 const useStyles = makeStyles(() => ({
-  bar: {
+  nameStyle: {
     margin: 0,
   },
-  companyName: {
-    border: "1px solid",
+  companyBar: {
     padding: 9
+  },
+  blacklist: {
+    display: "none"
+  },
+  compLabels: {
+    paddingBottom: 12
   }
 }))
 
 function CompanyBar(props) {
   const {id, labels, name} = props.company
-  const {bar, companyName} = useStyles()
+  const {nameStyle, companyBar, blacklist, compLabels} = useStyles()
   return (
-      <div className={companyName}>
-        <CompanyLabels labels={labels}/>
+      <div className={companyBar}>
+        <div className={compLabels}>
+          <CompanyLabels labels={labels}/>
+        </div>
         <Grid
             container direction="row" justify="space-between"
             alignItems="center" key={id}
         >
-          <h3 className={bar}> {name} </h3>
-          <h3 className={bar}>
+          <h3 className={nameStyle}> {name} </h3>
+          <h3 className={blacklist}>
             <Button value={name}>blacklist</Button>
           </h3>
         </Grid>
+        <hr/>
       </div>
   )
 }

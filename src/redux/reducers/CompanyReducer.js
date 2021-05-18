@@ -165,7 +165,6 @@ function getNumOfJobPostings(companies) {
   }
 }
 
-// what is ths?
 function shouldUpdateJobPosting(jobs, jobPosting) {
   for (let j of jobs) {
     if (j.id === jobPosting.id) {
@@ -175,7 +174,6 @@ function shouldUpdateJobPosting(jobs, jobPosting) {
   return false
 }
 
-// what is this?
 function shouldUpdateCompany(jobs, companyName) {
   for (let j of jobs) {
     if (j.company === companyName) {
