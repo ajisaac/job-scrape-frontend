@@ -96,44 +96,36 @@ export function fetchCompaniesFiltered(state, statusFilter) {
   }
 }
 
-export function getBlacklistedCompanies(state) {
-  return state.companies.blacklistedCompanies
-}
-
 function updateMultipleJobStatus(returnedJobs, companies) {
-  // jobs is array of updated jobs
-  // companies is the companies array from our store
-  // tod o refactor into functions or a separate module
 
   let updatedCompanies = []
-  companiesLoop:
-      for (let i = 0; i < companies.length; i++) {
-        if (!shouldUpdateCompany(returnedJobs, companies[i].name)) {
-          updatedCompanies.push(companies[i])
-          continue companiesLoop
+  for (let i = 0; i < companies.length; i++) {
+    if (!shouldUpdateCompany(returnedJobs, companies[i].name)) {
+      updatedCompanies.push(companies[i])
+      continue
+    }
+
+    let updatedCompany = Object.assign({}, companies[i])
+    let updatedJobPostings = []
+
+    jobPostingsLoop:
+        for (let j = 0; j < companies[i].jobPostings.length; j++) {
+          if (!shouldUpdateJobPosting(returnedJobs, companies[i].jobPostings[j])) {
+            updatedJobPostings.push(companies[i].jobPostings[j])
+            continue
+          }
+
+          for (let k = 0; k < returnedJobs.length; k++) {
+            if (returnedJobs[k].id === companies[i].jobPostings[j].id) {
+              updatedJobPostings.push(returnedJobs[k])
+              continue jobPostingsLoop
+            }
+          }
         }
 
-        let updatedCompany = Object.assign({}, companies[i])
-        let updatedJobPostings = []
-
-        jobPostingsLoop:
-            for (let j = 0; j < companies[i].jobPostings.length; j++) {
-              if (!shouldUpdateJobPosting(returnedJobs, companies[i].jobPostings[j])) {
-                updatedJobPostings.push(companies[i].jobPostings[j])
-                continue jobPostingsLoop
-              }
-
-              for (let k = 0; k < returnedJobs.length; k++) {
-                if (returnedJobs[k].id === companies[i].jobPostings[j].id) {
-                  updatedJobPostings.push(returnedJobs[k])
-                  continue jobPostingsLoop
-                }
-              }
-            }
-
-        updatedCompany.jobPostings = updatedJobPostings
-        updatedCompanies.push(updatedCompany)
-      }
+    updatedCompany.jobPostings = updatedJobPostings
+    updatedCompanies.push(updatedCompany)
+  }
   return updatedCompanies
 }
 
