@@ -1,12 +1,12 @@
 import {
-  BLACKLIST_COMPANY, BLACKLIST_COMPANY_ERROR,
   FETCH_ALL_COMPANIES,
-  FETCH_ALL_COMPANIES_ERROR, FETCH_BLACKLISTED_COMPANIES,
+  FETCH_ALL_COMPANIES_ERROR,
+  JOB_POSTING_ADDED,
+  JOB_POSTING_ADDED_ERROR,
   JOB_STATE_UPDATED,
   JOB_STATE_UPDATED_ERROR,
   JOB_STATES_UPDATED,
   JOB_STATES_UPDATED_ERROR,
-  UPDATE_SEARCH_FILTERS
 } from "../actions/ActionTypes"
 import _ from "lodash"
 
@@ -18,6 +18,7 @@ const initialStore = {
 export function CompanyReducer(store = initialStore, action) {
   switch (action.type) {
 
+    case JOB_POSTING_ADDED:
     case FETCH_ALL_COMPANIES: {
       let retStore = Object.assign({}, store)
       retStore.companies = action.payload
@@ -40,6 +41,9 @@ export function CompanyReducer(store = initialStore, action) {
       return Object.assign({}, {...store, companies: updatedCompanies})
     }
     case JOB_STATES_UPDATED_ERROR: {
+      return store
+    }
+    case JOB_POSTING_ADDED_ERROR: {
       return store
     }
 

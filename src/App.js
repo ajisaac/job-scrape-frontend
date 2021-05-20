@@ -4,6 +4,8 @@ import {BrowserRouter as Router, Link, Route} from "react-router-dom"
 import {Switch} from "react-router"
 import Layout from "./components/Layout"
 import ScrapePage from "./components/scrape/ScrapePage"
+import AddPostingForm from "./components/add-posting/AddPostingForm"
+import AddAngelCoPosting from "./components/add-posting/AddAngelCoPosting"
 
 class App extends React.Component {
 
@@ -12,7 +14,7 @@ class App extends React.Component {
         <Router>
           <Switch>
             <Route path={"/all"}>
-              <Layout title="All">
+              <Layout title="All Postings">
                 <JobsPage filter={"all"}/>
               </Layout>
             </Route>
@@ -51,11 +53,23 @@ class App extends React.Component {
                 <JobsPage filter={"ignored"}/>
               </Layout>
             </Route>
-            <Route path={"/scrape"}>
-              <Layout title="Scrape">
+
+            <Route path={"/scrapers"}>
+              <Layout title="Scrape Job Boards">
                 <ScrapePage/>
               </Layout>
             </Route>
+            <Route path={"/add-single-job"}>
+              <Layout title="Add Single Job">
+                <AddPostingForm/>
+              </Layout>
+            </Route>
+            <Route path={"/add-angel-co-job"}>
+              <Layout title="Add angel.co Job">
+                <AddAngelCoPosting/>
+              </Layout>
+            </Route>
+
             <Route path={"/"}>
               <Layout title="All">
                 <JobsPage filter={"all"}/>

@@ -72,7 +72,7 @@ export default function Layout(props) {
         >
           <Toolbar variant="dense"/>
           <Typography variant="h6" className={classes.title}>
-            {props.title} Jobs
+            {props.title}
           </Typography>
           <Divider/>
           <div className={classes.drawerContainer}>
@@ -94,14 +94,18 @@ export default function Layout(props) {
             </List>
             <Divider/>
             <List>
-              {[
-                "Scrape",
-                "AddSingleJob"].map((text, index) => (
-                  <ListItem button key={index} component={Link}
-                            to={"/" + text.toLocaleLowerCase()}>
-                    <ListItemText primary={text}/>
-                  </ListItem>
-              ))}
+              <ListItem button component={Link}
+                        to={"/scrapers"}>
+                <ListItemText primary={"Scrapers"}/>
+              </ListItem>
+              <ListItem button component={Link}
+                        to={"/add-angel-co-job"}>
+                <ListItemText primary={"Add angel.co Job"}/>
+              </ListItem>
+              <ListItem button component={Link}
+                        to={"/add-single-job"}>
+                <ListItemText primary={"Add Single Job"}/>
+              </ListItem>
             </List>
           </div>
         </Drawer>

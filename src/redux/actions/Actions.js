@@ -6,6 +6,8 @@ import {
   JOB_STATE_UPDATED_ERROR,
   JOB_STATES_UPDATED,
   JOB_STATES_UPDATED_ERROR,
+  JOB_POSTING_ADDED_ERROR,
+  JOB_POSTING_ADDED
 } from "./ActionTypes"
 
 
@@ -14,13 +16,23 @@ const baseUrl = 'http://localhost:5000'
 export const fetchCompanies = () => dispatch => {
   axios.get(baseUrl + '/jobs/all/bycompany').then(
       resp => dispatch({
-        type: FETCH_ALL_COMPANIES,
-        payload: resp.data.companies
+        type: FETCH_ALL_COMPANIES, payload: resp.data.companies
       }),
       err => dispatch({type: FETCH_ALL_COMPANIES_ERROR, payload: err.data})
   )
 }
-
+export const addJobPosting = (jobPosting) => dispatch => {
+  axios.post(baseUrl + '/jobs/new/any', jobPosting).then(
+      resp => dispatch({type: JOB_POSTING_ADDED, payload: resp.data.companies}),
+      err => dispatch({type: JOB_POSTING_ADDED_ERROR, payload: err.data})
+  )
+}
+export const addAngelCoPosting = (jobPosting) => dispatch => {
+  axios.post(baseUrl + '/jobs/new/angelco', jobPosting).then(
+      resp => dispatch({type: JOB_POSTING_ADDED, payload: resp.data.companies}),
+      err => dispatch({type: JOB_POSTING_ADDED_ERROR, payload: err.data})
+  )
+}
 
 export const updateJobState = (jobId, state) => dispatch => {
   axios.put(baseUrl + '/jobs/status/' + jobId + '/' + state).then(
