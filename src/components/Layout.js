@@ -14,6 +14,7 @@ import ListItemText from "@material-ui/core/ListItemText"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import {Link} from "react-router-dom"
 import {Divider} from "@material-ui/core"
+import axios from "axios"
 
 const drawerWidth = 240
 
@@ -106,6 +107,22 @@ export default function Layout(props) {
                         to={"/add-single-job"}>
                 <ListItemText primary={"Add Single Job"}/>
               </ListItem>
+            </List>
+            <Divider/>
+            <List>
+              <ListItem button component={Link} to={"#"} onClick={async () => {
+                await (async function saveFile() {
+                  let resp = await axios.get('http://localhost:5000/jobs/backup')
+                  let companies = JSON.stringify(resp.data)
+                  let element = document.createElement('a')
+                  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(companies))
+                  element.setAttribute('download', 'backup.json')
+                  element.style.display = 'none'
+                  document.body.appendChild(element)
+                  element.click()
+                  document.body.removeChild(element)
+                }())
+              }}><ListItemText primary={"Backup Data"}/></ListItem>
             </List>
           </div>
         </Drawer>
