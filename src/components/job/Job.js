@@ -11,7 +11,7 @@ const styles = makeStyles(() => ({
     fontSize: 17,
     lineHeight: "1.5em"
   },
-  jobTitle: {
+  job_title: {
     marginBottom: "3px",
     textAlign: "center"
   },
@@ -24,18 +24,18 @@ const styles = makeStyles(() => ({
 }))
 
 function Job(props) {
-  const {date, description, href, job_title, location, status} = props.job
-  const {root, jobTitle, descriptionClass, statusSpan} = styles()
+  const {date, description, href, jobTitle, location, status} = props.job
+  const {root, job_title, descriptionClass, statusSpan} = styles()
 
   return (
       <div className={root}>
 
-        <div className={jobTitle}>
+        <div className={job_title}>
 
           <div>
             <b>
               <a target="_blank" rel="noreferrer noopener" href={href}>
-                {job_title}{location && (" - " + location)}
+                {jobTitle}{location && (" - " + location)}
               </a> - <span className={statusSpan}>{status}</span>
             </b>
           </div>

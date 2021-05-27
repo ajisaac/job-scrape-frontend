@@ -11,7 +11,7 @@ import {
 } from "./ActionTypes"
 
 
-const baseUrl = 'http://localhost:5000'
+const baseUrl = 'http://localhost:8080'
 
 export const fetchCompanies = () => dispatch => {
   axios.get(baseUrl + '/jobs/all/bycompany').then(

@@ -6,6 +6,8 @@ import Layout from "./components/Layout"
 import ScrapePage from "./components/scrape/ScrapePage"
 import AddPostingForm from "./components/add-posting/AddPostingForm"
 import AddAngelCoPosting from "./components/add-posting/AddAngelCoPosting"
+import Clients from "./components/clients-agencies/Clients"
+import Agencies from "./components/clients-agencies/Agencies"
 
 class App extends React.Component {
 
@@ -67,6 +69,17 @@ class App extends React.Component {
             <Route path={"/add-angel-co-job"}>
               <Layout title="Add angel.co Job">
                 <AddAngelCoPosting/>
+              </Layout>
+            </Route>
+
+            <Route path={"/agencies"}>
+              <Layout title="Agencies">
+                <Agencies/>
+              </Layout>
+            </Route>
+            <Route path={"/clients"}>
+              <Layout title="Clients">
+                <Clients/>
               </Layout>
             </Route>
 

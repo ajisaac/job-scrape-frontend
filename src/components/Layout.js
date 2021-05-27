@@ -79,40 +79,53 @@ export default function Layout(props) {
           <div className={classes.drawerContainer}>
             <List>
               {[
-                "New",
-                "Saved",
-                "Applied",
-                "Interviewing",
-                "Excluded",
-                "Rejected",
-                "Ignored",
-                "All"].map((text, index) => (
+                "new",
+                "saved",
+                "applied",
+                "interviewing",
+                "excluded",
+                "rejected",
+                "ignored",
+                "all"].map((text, index) => (
                   <ListItem button key={index} component={Link}
                             to={"/" + text.toLocaleLowerCase()}>
                     <ListItemText primary={text}/>
                   </ListItem>
               ))}
             </List>
+
+            <Divider/>
+            <List>
+              <ListItem button component={Link}
+                        to={"/clients"}>
+                <ListItemText primary={"clients"}/>
+              </ListItem>
+              <ListItem button component={Link}
+                        to={"/agencies"}>
+                <ListItemText primary={"agencies"}/>
+              </ListItem>
+            </List>
+
             <Divider/>
             <List>
               <ListItem button component={Link}
                         to={"/scrapers"}>
-                <ListItemText primary={"Scrapers"}/>
+                <ListItemText primary={"scrapers"}/>
               </ListItem>
               <ListItem button component={Link}
                         to={"/add-angel-co-job"}>
-                <ListItemText primary={"Add angel.co Job"}/>
+                <ListItemText primary={"add angel.co job"}/>
               </ListItem>
               <ListItem button component={Link}
                         to={"/add-single-job"}>
-                <ListItemText primary={"Add Single Job"}/>
+                <ListItemText primary={"add single job"}/>
               </ListItem>
             </List>
             <Divider/>
             <List>
               <ListItem button component={Link} to={"#"} onClick={async () => {
                 await (async function saveFile() {
-                  let resp = await axios.get('http://localhost:5000/jobs/backup')
+                  let resp = await axios.get('http://localhost:8080/jobs/backup')
                   let companies = JSON.stringify(resp.data)
                   let element = document.createElement('a')
                   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(companies))
@@ -122,7 +135,7 @@ export default function Layout(props) {
                   element.click()
                   document.body.removeChild(element)
                 }())
-              }}><ListItemText primary={"Backup Data"}/></ListItem>
+              }}><ListItemText primary={"backup data"}/></ListItem>
             </List>
           </div>
         </Drawer>
