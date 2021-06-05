@@ -8,6 +8,8 @@ import AddPostingForm from "./components/add-posting/AddPostingForm"
 import AddAngelCoPosting from "./components/add-posting/AddAngelCoPosting"
 import Clients from "./components/clients-agencies/Clients"
 import Agencies from "./components/clients-agencies/Agencies"
+import AddHighlightWord from "./components/add-highlight-word/AddHighlightWord"
+import HighlightWords from "./components/add-highlight-word/HighlightWords"
 
 class App extends React.Component {
 
@@ -69,6 +71,17 @@ class App extends React.Component {
             <Route path={"/add-angel-co-job"}>
               <Layout title="Add angel.co Job">
                 <AddAngelCoPosting/>
+              </Layout>
+            </Route>
+
+            <Route path={"/add-highlight-word"}>
+              <Layout title="Add Highlight Word">
+                <AddHighlightWord/>
+              </Layout>
+            </Route>
+            <Route path={"/highlight-words"}>
+              <Layout title="Highlight Words">
+                <HighlightWords/>
               </Layout>
             </Route>
 

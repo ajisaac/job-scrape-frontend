@@ -137,6 +137,19 @@ export default function Layout(props) {
                 }())
               }}><ListItemText primary={"backup data"}/></ListItem>
             </List>
+
+            <Divider/>
+            <List>
+              <ListItem button component={Link}
+                        to={"/highlight-words"}>
+                <ListItemText primary={"Highlight Words"}/>
+              </ListItem>
+              <ListItem button component={Link}
+                        to={"/add-highlight-word"}>
+                <ListItemText primary={"Add Highlight Word"}/>
+              </ListItem>
+            </List>
+
           </div>
         </Drawer>
 

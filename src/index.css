@@ -10,3 +10,10 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.highlight {
+    background-color: #e488f4;
+    padding: 3px;
+    font-weight: bold;
+    border-radius: 5px;
+}
