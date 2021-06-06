@@ -1,39 +1,47 @@
-import React, {useState} from "react"
-import Button from "@material-ui/core/Button"
+import React from "react"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 
-const useStyles = makeStyles((theme) => ({
+
+let useStyles = makeStyles(() => ({
   root: {
-    padding: 8
+    backgroundColor: "black",
+    color: "green",
+    padding: 10
+  },
+  entry: {
+    // padding: 2,
+    fontFamily: "monospace",
+    fontWeight: "bold"
   }
 }))
-
-
+// The scrolling status box for if we are scraping
 export default function ScrollingStatusBox(props) {
-  const [status, setStatus] = useState([])
-  const [formText, setFormText] = useState("")
+  let {root, entry} = useStyles()
 
-  let id = props.scraper
+  let entries = props?.entries
 
-  const addStatus = (s) => {
-    console.log(s)
-    if (s.id === id) {
-      status.unshift(s)
-      setStatus(status.slice(0, 5))
+  let hasValidEntries = false
+  entries.forEach(e => {
+    if (typeof e === "string" && !!e) {
+      hasValidEntries = true
     }
+  })
+
+  if(!hasValidEntries){
+    return (
+        <div/>
+    )
   }
 
   return (
-      <div>
-        {status.map((s, i) => <div key={i}>{s}</div>)}
-        <form>
-          <input type="text"
-                 value={formText}
-                 onChange={e => setFormText(e.target.value)}/>
-          <Button onClick={() => {
-            addStatus(formText)
-          }}>push</Button>
-        </form>
+      <div className={root}>
+        {entries.map(e => {
+          if (typeof e === "string" && !!e)
+            return <div className={entry}>{e}</div>
+          else
+            return <div/>
+        })}
       </div>
   )
+
 }
