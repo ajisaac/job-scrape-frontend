@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   }
 }))
 
-export default function ScrapePage(props) {
+export default function ScrapePage() {
   const classes = useStyles()
   return (
       <Card elevation={1} className={classes.root}>

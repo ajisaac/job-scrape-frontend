@@ -3,9 +3,9 @@ import makeStyles from "@material-ui/core/styles/makeStyles"
 import {Button, Card, Grid, TextField} from "@material-ui/core"
 import {TextareaAutosize} from "@material-ui/core"
 import {connect} from "react-redux"
-import {addJobPosting, updateJobState} from "../../redux/actions/Actions"
+import {addJobPosting} from "../../redux/actions/Actions"
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {},
   formTitle: {
     marginBottom: "3px",
@@ -48,7 +48,6 @@ function AddPostingForm(props) {
     inputField,
     textArea,
     textAreaHolder,
-    textAreaLabel,
     button
   } = useStyles()
   return (<div className={root}>

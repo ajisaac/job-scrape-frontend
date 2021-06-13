@@ -1,6 +1,6 @@
 import React from "react"
 import JobsPage from "./components/JobsPage"
-import {BrowserRouter as Router, Link, Route} from "react-router-dom"
+import {BrowserRouter as Router, Route} from "react-router-dom"
 import {Switch} from "react-router"
 import Layout from "./components/Layout"
 import ScrapePage from "./components/scrape/ScrapePage"

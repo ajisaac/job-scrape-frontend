@@ -8,7 +8,7 @@ import {
   updateMultipleJobState,
 } from "../../redux/actions/Actions"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     padding: 14,
     marginTop: 8,

@@ -1,11 +1,11 @@
 import React, {useState} from "react"
 import makeStyles from "@material-ui/core/styles/makeStyles"
-import {Card, Grid, TextareaAutosize, TextField} from "@material-ui/core"
+import {Card, Grid, TextareaAutosize} from "@material-ui/core"
 import {connect} from "react-redux"
 import {addAngelCoPosting} from "../../redux/actions/Actions"
 import Button from "@material-ui/core/Button"
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     "& Button": {
       marginTop: 15,

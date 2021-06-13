@@ -11,7 +11,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-export default function Scraper(props) {
+export default function Scraper() {
 
 
   const url = "ws://localhost:8080/chat"

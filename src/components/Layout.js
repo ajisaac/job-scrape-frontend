@@ -1,17 +1,12 @@
-// The layout includes our navigation menu as well as our
-// Header (AppBar). We pass in the children we want to render
-// here.
 import React from "react"
 
 import Typography from "@material-ui/core/Typography"
-import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 import Drawer from "@material-ui/core/Drawer"
 import List from "@material-ui/core/List"
 import ListItem from "@material-ui/core/ListItem"
 import ListItemText from "@material-ui/core/ListItemText"
-import CssBaseline from "@material-ui/core/CssBaseline"
 import {Link} from "react-router-dom"
 import {Divider} from "@material-ui/core"
 import axios from "axios"
@@ -41,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     backgroundColor: "#f0ece7",
     border: "none",
-    // borderRight: "1px solid black",
   },
   drawerContainer: {
     overflow: "auto",
@@ -53,8 +47,6 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 240,
     maxWidth: 1200,
     margin: "auto",
-    // borderLeft: "1px solid black",
-
   },
 }))
 
