@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import ScrollingStatusBox from "./ScrollingStatusBox"
 import Button from "@material-ui/core/Button"
 import makeStyles from "@material-ui/core/styles/makeStyles"
+import axios from "axios"
 
 let useStyles = makeStyles(() => ({
   spacer: {
@@ -16,6 +17,16 @@ export default function ScrapeBox(props) {
 
   return (<div>
     <Button onClick={() => {
+      if (props?.scraper?.id) {
+        let url = "http://localhost:8080/batch/scrape/" + props.scraper.id
+        axios.post(url, {})
+            .then()
+            .catch(err => {
+              console.log(err)
+            })
+      } else {
+
+      }
     }}>Scrape</Button>
     <span className={spacer}>-</span>
     <span>{s.name}</span>

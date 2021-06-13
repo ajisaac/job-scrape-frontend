@@ -3,6 +3,7 @@ import {makeStyles} from "@material-ui/core/styles"
 import {Stomp} from "@stomp/stompjs"
 import axios from "axios"
 import ScrapeBox from "./ScrapeBox"
+import Button from "@material-ui/core/Button"
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -106,6 +107,17 @@ export default function Scraper(props) {
   }
   return (
       <div className={classes.root}>
+        <Button onClick={() => {
+          scrapers.forEach(s => {
+            if (s.id) {
+              let url = "http://localhost:8080/batch/scrape/" + s.id
+              axios.post(url, {}).then().catch(err => console.log(err))
+            }
+          })
+        }}>
+          Scrape All
+        </Button>
+        <hr/>
         {scrapers.map(d => (
             <div key={d.id}>
               <ScrapeBox scraper={d} entries={d?.site && entries[d.site]}/>

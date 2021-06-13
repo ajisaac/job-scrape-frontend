@@ -59,7 +59,7 @@ function HighlightWords(props) {
               </div>
               <Grid container>
                 {words.map(w => {
-                  return <span className={highlight}>{w.name}</span>
+                  return <span key={w.id} className={highlight}>{w.name}</span>
                 })}
               </Grid>
             </Card>
