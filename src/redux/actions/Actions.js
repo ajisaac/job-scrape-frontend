@@ -7,7 +7,13 @@ import {
   JOB_STATES_UPDATED,
   JOB_STATES_UPDATED_ERROR,
   JOB_POSTING_ADDED_ERROR,
-  JOB_POSTING_ADDED
+  JOB_POSTING_ADDED,
+  FILTER_BY_SEARCH_TEXT,
+  FILTER_BY_JOB_STATUS,
+  FILTER_BY_JOB_STATUSES,
+  FILTER_BY_COMPANY_NAME,
+  GRAYLIST_ON_OFF,
+  FILTER_BY_JOB_SOURCE
 } from "./ActionTypes"
 
 
@@ -46,4 +52,28 @@ export const updateMultipleJobState = (newStatus, jobsToUpdate) => dispatch => {
       resp => dispatch({type: JOB_STATES_UPDATED, payload: resp.data}),
       err => dispatch({type: JOB_STATES_UPDATED_ERROR, payload: err.data})
   )
+}
+
+export const filterBySearchText = (searchText) => dispatch => {
+  dispatch({type: FILTER_BY_SEARCH_TEXT, payload: searchText})
+}
+
+export const filterByJobStatus = (status) => dispatch => {
+  dispatch({type: FILTER_BY_JOB_STATUS, payload: status})
+}
+
+export const filterByJobStatuses = (statusArr) => dispatch => {
+  dispatch({type: FILTER_BY_JOB_STATUSES, payload: statusArr})
+}
+
+export const filterByCompanyName = (name) => dispatch => {
+  dispatch({type: FILTER_BY_COMPANY_NAME, payload: name})
+}
+
+export const graylistOnOff = (onOff) => dispatch => {
+  dispatch({type: GRAYLIST_ON_OFF, payload: onOff})
+}
+
+export const filterByJobSource = (source) => dispatch => {
+  dispatch({type: FILTER_BY_JOB_SOURCE, payload: source})
 }

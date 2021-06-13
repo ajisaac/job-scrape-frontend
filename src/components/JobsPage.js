@@ -6,6 +6,7 @@ import {
 import Company from "./company/Company"
 import {fetchCompaniesFiltered} from "../redux/reducers/CompanyReducer"
 import {Grid} from "@material-ui/core"
+import SearchFilter from "./search-filter/SearchFilter"
 
 function JobsPage(props) {
 
@@ -24,6 +25,8 @@ function JobsPage(props) {
         <div className={"main-panel"}>
           <span>{data.numOfCompanies} companies - </span>
           <span>{data.numOfJobs} jobs</span>
+          <hr/>
+          <SearchFilter/>
           <hr/>
           <Grid container>
             {data.filteredCompanies.map((company) => {

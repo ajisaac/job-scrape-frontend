@@ -22,7 +22,7 @@ function Company(props) {
   const {company} = props
   const {root} = useStyles()
   return (
-      <Card key={company.id} elevation={1} className={root}>
+      <Card key={company.id} variant={"outlined"} className={root}>
         <CompanyBar company={company}/>
         {company.jobPostings.map(job =>
             <Job key={job.id} job={job}/>
