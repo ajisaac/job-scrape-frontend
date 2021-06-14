@@ -6,8 +6,6 @@ import Layout from "./components/Layout"
 import ScrapePage from "./components/scrape/ScrapePage"
 import AddPostingForm from "./components/add-posting/AddPostingForm"
 import AddAngelCoPosting from "./components/add-posting/AddAngelCoPosting"
-import Clients from "./components/clients-agencies/Clients"
-import Agencies from "./components/clients-agencies/Agencies"
 import AddHighlightWord from "./components/add-highlight-word/AddHighlightWord"
 import HighlightWords from "./components/add-highlight-word/HighlightWords"
 
@@ -82,17 +80,6 @@ class App extends React.Component {
             <Route path={"/highlight-words"}>
               <Layout title="Highlight Words">
                 <HighlightWords/>
-              </Layout>
-            </Route>
-
-            <Route path={"/agencies"}>
-              <Layout title="Agencies">
-                <Agencies/>
-              </Layout>
-            </Route>
-            <Route path={"/clients"}>
-              <Layout title="Clients">
-                <Clients/>
               </Layout>
             </Route>
 

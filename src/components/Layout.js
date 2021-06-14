@@ -89,18 +89,6 @@ export default function Layout(props) {
             <Divider/>
             <List>
               <ListItem button component={Link}
-                        to={"/clients"}>
-                <ListItemText primary={"clients"}/>
-              </ListItem>
-              <ListItem button component={Link}
-                        to={"/agencies"}>
-                <ListItemText primary={"agencies"}/>
-              </ListItem>
-            </List>
-
-            <Divider/>
-            <List>
-              <ListItem button component={Link}
                         to={"/scrapers"}>
                 <ListItemText primary={"scrapers"}/>
               </ListItem>
