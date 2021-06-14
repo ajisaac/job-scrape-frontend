@@ -2,8 +2,6 @@ import React from "react"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 import {Button, Card, Grid, TextField} from "@material-ui/core"
 import {TextareaAutosize} from "@material-ui/core"
-import {connect} from "react-redux"
-import {addJobPosting} from "../../redux/actions/Actions"
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -111,6 +109,4 @@ function AddPostingForm(props) {
   </div>)
 }
 
-export default connect(state => state, {
-  addJobPosting: addJobPosting,
-})(AddPostingForm)
+export default AddPostingForm

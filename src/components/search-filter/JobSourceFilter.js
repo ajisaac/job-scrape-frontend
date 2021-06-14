@@ -1,4 +1,3 @@
-import {connect} from "react-redux"
 import React from "react"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 import {Checkbox, FormControlLabel} from "@material-ui/core"
@@ -46,6 +45,4 @@ function JobSourceFilter() {
   )
 }
 
-export default connect((state) => {
-  return state
-})(JobSourceFilter)
+export default JobSourceFilter

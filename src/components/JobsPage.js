@@ -1,20 +1,25 @@
-import React, {useEffect} from "react"
-import {connect} from "react-redux"
-import {
-  fetchCompanies
-} from "../redux/actions/Actions"
-import Company from "./company/Company"
-import {fetchCompaniesFiltered} from "../redux/reducers/CompanyReducer"
+import React, {useEffect, useState} from "react"
 import {Grid} from "@material-ui/core"
+import axios from "axios"
+import Job from "./job/Job"
 import SearchFilter from "./search-filter/SearchFilter"
 
-function JobsPage(props) {
+
+function JobsPage() {
+
+  let [jobPostings, updateJobPostings] = useState([])
 
   useEffect(() => {
-    props.fetchCompanies()
+    axios.post('http://localhost:8080/jobs/all', {}).then(
+        resp => {
+          updateJobPostings(resp.data)
+        },
+        err => {
+          console.log(err)
+        }
+    )
   }, [])
 
-  let data = props.companies
   return (
       <Grid
           container
@@ -23,33 +28,18 @@ function JobsPage(props) {
           alignItems="stretch"
       >
         <div className={"main-panel"}>
-          <span>{data.numOfCompanies} companies - </span>
-          <span>{data.numOfJobs} jobs</span>
+          {/*<span>{data.numOfCompanies} companies - </span>*/}
+          {/*<span>{data.numOfJobs} jobs</span>*/}
           <hr/>
           <SearchFilter/>
           <hr/>
           <Grid container>
-            {data.filteredCompanies.map((company) => {
-              return (
-                  <Grid item key={company.id}>
-                    <Company
-                        key={company.id}
-                        company={company}
-                        filter={props.filter}
-                    />
-                  </Grid>
-              )
-            })}
+            {jobPostings.map(posting => (
+                <Job key={posting.id} job={posting}/>))}
           </Grid>
         </div>
       </Grid>
   )
 }
 
-const mapStateToProps = (state, {filter}) =>
-    ({companies: fetchCompaniesFiltered(state, filter || "new")})
-
-
-export default connect(mapStateToProps, {
-  fetchCompanies: fetchCompanies,
-})(JobsPage)
+export default JobsPage

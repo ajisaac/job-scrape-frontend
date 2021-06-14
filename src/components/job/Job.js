@@ -1,10 +1,16 @@
 import React from "react"
-import {connect} from "react-redux"
-import {updateJobState} from "../../redux/actions/Actions"
 import UpdateStatuses from "./UpdateStatuses"
 import makeStyles from "@material-ui/core/styles/makeStyles"
+import Grid from "@material-ui/core/Grid"
 
 const styles = makeStyles(() => ({
+  gridRoot: {
+    padding: 14,
+    marginTop: 8,
+    marginBottom: 8,
+    color: "#3c4146",
+    backgroundColor: "#fefaf8"
+  },
   root: {
     padding: 24,
     paddingTop: 10,
@@ -25,38 +31,40 @@ const styles = makeStyles(() => ({
 
 function Job(props) {
   const {date, description, href, jobTitle, location, status} = props.job
-  const {root, job_title, descriptionClass, statusSpan} = styles()
+  const {gridRoot, root, job_title, descriptionClass, statusSpan} = styles()
 
   return (
-      <div className={root}>
 
-        <div className={job_title}>
+      <Grid className={gridRoot} item>
+        <div className={root}>
+
+          <div className={job_title}>
+
+            <div>
+              <b>
+                <a target="_blank" rel="noreferrer noopener" href={href}>
+                  {jobTitle}{location && (" - " + location)}
+                </a> - <span className={statusSpan}>{status}</span>
+              </b>
+            </div>
+
+            <UpdateStatuses status={status}
+                            updateJobStatus={value => {
+                              props.updateJobState(props.job.id, value)
+                            }}/>
+          </div>
 
           <div>
-            <b>
-              <a target="_blank" rel="noreferrer noopener" href={href}>
-                {jobTitle}{location && (" - " + location)}
-              </a> - <span className={statusSpan}>{status}</span>
-            </b>
+            <div className={descriptionClass}>
+              <div dangerouslySetInnerHTML={{__html: description}}/>
+            </div>
           </div>
 
-          <UpdateStatuses status={status}
-                          updateJobStatus={value => {
-                            props.updateJobState(props.job.id, value)
-                          }}/>
+          <div>{date}</div>
+          <hr/>
         </div>
-
-        <div>
-          <div className={descriptionClass}>
-            <div dangerouslySetInnerHTML={{__html: description}}/>
-          </div>
-        </div>
-        <div>{date}</div>
-        <hr/>
-      </div>
+      </Grid>
   )
 }
 
-export default connect(state => state, {
-  updateJobState: updateJobState,
-})(Job)
+export default Job

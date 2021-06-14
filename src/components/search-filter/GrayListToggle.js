@@ -1,4 +1,3 @@
-import {connect} from "react-redux"
 import React from "react"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 import Grid from "@material-ui/core/Grid"
@@ -34,6 +33,4 @@ function GrayListToggle() {
   )
 }
 
-export default connect((state) => {
-  return state
-})(GrayListToggle)
+export default GrayListToggle

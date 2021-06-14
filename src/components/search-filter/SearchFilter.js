@@ -1,4 +1,3 @@
-import {connect} from "react-redux"
 import React from "react"
 import {Card, CardContent, Grid} from "@material-ui/core"
 import SearchBox from "./SearchBox"
@@ -57,6 +56,4 @@ function SearchFilter() {
   )
 }
 
-export default connect((state) => {
-  return state
-})(SearchFilter)
+export default SearchFilter

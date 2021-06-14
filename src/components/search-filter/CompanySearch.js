@@ -1,4 +1,3 @@
-import {connect} from "react-redux"
 import React from "react"
 import {TextField} from "@material-ui/core"
 import makeStyles from "@material-ui/core/styles/makeStyles"
@@ -38,6 +37,4 @@ function CompanySearch() {
   )
 }
 
-export default connect((state) => {
-  return state
-})(CompanySearch)
+export default CompanySearch

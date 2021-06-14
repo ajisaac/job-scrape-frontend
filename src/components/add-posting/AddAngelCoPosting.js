@@ -1,8 +1,6 @@
 import React, {useState} from "react"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 import {Card, Grid, TextareaAutosize} from "@material-ui/core"
-import {connect} from "react-redux"
-import {addAngelCoPosting} from "../../redux/actions/Actions"
 import Button from "@material-ui/core/Button"
 
 const useStyles = makeStyles(() => ({
@@ -92,6 +90,4 @@ function AddAngelCoPosting(props) {
   </div>)
 }
 
-export default connect(state => state, {
-  addAngelCoPosting: addAngelCoPosting,
-})(AddAngelCoPosting)
+export default AddAngelCoPosting

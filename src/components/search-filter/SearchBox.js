@@ -1,4 +1,3 @@
-import {connect} from "react-redux"
 import React from "react"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 import Grid from "@material-ui/core/Grid"
@@ -37,6 +36,4 @@ function SearchBox() {
   )
 }
 
-export default connect((state) => {
-  return state
-})(SearchBox)
+export default SearchBox
