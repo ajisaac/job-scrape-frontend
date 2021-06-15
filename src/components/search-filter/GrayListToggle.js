@@ -1,18 +1,16 @@
 import React from "react"
-import makeStyles from "@material-ui/core/styles/makeStyles"
 import Grid from "@material-ui/core/Grid"
 import {Checkbox, FormControlLabel} from "@material-ui/core"
 
+function GrayListToggle(props) {
 
-let styles = makeStyles(() => ({
-  textField: {
-    maxWidth: 150
+  let {update, state} = props
+
+  let handleChange = function (event) {
+    if (event?.target?.checked !== undefined) {
+      update(event.target.checked)
+    }
   }
-}))
-
-function GrayListToggle() {
-
-  let {textField} = styles()
 
   return (
       <div>
@@ -20,8 +18,8 @@ function GrayListToggle() {
           <FormControlLabel
               control={
                 <Checkbox
-                    // checked={state.checkedB}
-                    // onChange={handleChange}
+                    checked={state}
+                    onChange={handleChange}
                     name="graylisted"
                     color="primary"
                 />

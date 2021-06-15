@@ -15,7 +15,15 @@ let useStyles = makeStyles(() => ({
 }))
 
 function SearchFilter(props) {
-  let {searchFilterState, state} = props
+  let {
+    company,
+    statuses,
+    jobSites,
+    filterGraylist,
+    jobDescriptionText,
+    jobTitleText,
+    functions,
+  } = props
 
   let {cardContent} = useStyles()
 
@@ -27,8 +35,32 @@ function SearchFilter(props) {
         <Grid item>
           <Card variant={"outlined"}>
             <CardContent className={cardContent}>
-              <SearchBox update={searchFilterState.updateTextSearch}/>
-              <CompanySearch update={searchFilterState.updateCompanySearch}/>
+              <Grid container spacing={2} direction={"column"}>
+                <Grid item>
+
+                  <SearchBox
+                      update={functions.updateJobTitleSearch}
+                      search={functions.search}
+                      state={jobTitleText}
+                      label={"Title Search"}
+                  />
+                </Grid>
+                <Grid item>
+                  <SearchBox
+                      update={functions.updateJobDescriptionSearch}
+                      search={functions.search}
+                      state={jobDescriptionText}
+                      label={"Description Search"}
+                  />
+                </Grid>
+                <Grid item>
+                  <CompanySearch
+                      update={functions.updateCompanySearch}
+                      search={functions.search}
+                      state={company}
+                  />
+                </Grid>
+              </Grid>
             </CardContent>
           </Card>
         </Grid>
@@ -36,7 +68,8 @@ function SearchFilter(props) {
           <Card variant={"outlined"}>
             <CardContent className={cardContent}>
               <GrayListToggle
-                  update={searchFilterState.updateIncludeGraylisted}/>
+                  update={functions.updateIncludeGraylisted}
+                  state={filterGraylist}/>
             </CardContent>
           </Card>
         </Grid>
@@ -44,8 +77,8 @@ function SearchFilter(props) {
           <Card variant={"outlined"}>
             <CardContent className={cardContent}>
               <JobStatusFilter
-                  update={searchFilterState.updateStatusFilter}
-                  state={state.statuses}
+                  update={functions.updateStatusFilter}
+                  state={statuses}
               />
             </CardContent>
           </Card>
@@ -54,8 +87,8 @@ function SearchFilter(props) {
           <Card variant={"outlined"}>
             <CardContent className={cardContent}>
               <JobSourceFilter
-                  update={searchFilterState.updateSiteFilter}
-                  state={state.jobSites}
+                  update={functions.updateSiteFilter}
+                  state={jobSites}
               />
             </CardContent>
           </Card>

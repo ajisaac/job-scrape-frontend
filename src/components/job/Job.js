@@ -50,7 +50,7 @@ function Job(props) {
 
             <UpdateStatuses status={status}
                             updateJobStatus={value => {
-                              props.updateJobState(props.job.id, value)
+                              props.update(props.job.id, value)
                             }}/>
           </div>
 

@@ -8,101 +8,138 @@ import SearchFilter from "./search-filter/SearchFilter"
 function JobsPage() {
 
   let [jobPostings, updateJobPostings] = useState([])
-  let [filter, updateFilter] = useState({
-    statuses: {
-      "new": true,
-      "saved": true,
-      "applied": true,
-      "interviewing": true,
-      "excluded": true,
-      "rejected": true,
-      "ignored": true,
-    },
-    jobSites: {
-      "WWR": true,
-      "Stackoverflow": false,
-      "Indeed": true,
-      "Remoteco": true,
-      "Remotiveio": true,
-      "Remoteok": true,
-      "Sitepoint": true,
-      "WorkingNomads": true
-    },
-    filterBlacklist: true,
-    filterGraylist: true,
-    company: "",
-    jobDescriptionTexts: [
-      "java"
-    ],
-    jobTitleTexts: [
-      "java"
-    ]
+  let [company, updateCompany] = useState("")
+  let [statuses, updateStatuses] = useState({
+    "new": false,
+    "saved": false,
+    "applied": false,
+    "interviewing": false,
+    "excluded": false,
+    "rejected": false,
+    "ignored": false,
   })
+  let [jobSites, updateJobSites] = useState({
+    "WWR": false,
+    "Stackoverflow": false,
+    "Indeed": false,
+    "Remoteco": false,
+    "Remotiveio": false,
+    "Remoteok": false,
+    "Sitepoint": false,
+    "WorkingNomads": false
+  })
+  let [filterGraylist, updateFilterGraylist] = useState(true)
+  let [jobDescriptionText, updateJobDescriptionText] = useState("")
+  let [jobTitleText, updateJobTitleText] = useState("")
+
+  let updateData = (postings) => {
+    if (postings)
+      updateJobPostings(postings)
+  }
+  let updateFilter = (filter) => {
+    if (filter) {
+      // get the various filter data and update the proper fields
+      let {
+        company,
+        statuses,
+        jobSites,
+        filterGraylist,
+        jobDescriptionText,
+        jobTitleTexts
+      } = filter
+
+      // get the various filter data and update the proper fields
+      if (company) updateCompany(company)
+      if (statuses) updateStatuses(statuses)
+      if (jobSites) updateJobSites(jobSites)
+      if (typeof filterGraylist === "boolean") updateFilterGraylist(filterGraylist)
+      if (jobDescriptionText) updateJobDescriptionText(jobDescriptionText)
+      if (jobTitleTexts) updateJobTitleText(jobTitleTexts)
+
+    }
+  }
+
+  let prepareFilter = function () {
+    console.log(filterGraylist)
+    return {
+      jobPostings,
+      company,
+      statuses,
+      jobSites,
+      filterGraylist,
+      jobDescriptionText,
+      jobTitleText,
+    }
+  }
 
   let getUpdatedPostings = () => {
-    axios.post('http://localhost:8080/jobs/all', filter).then(
-        resp => {
-          updateJobPostings(resp.data)
+    axios.post('http://localhost:8080/jobs/all', prepareFilter()).then(
+        ({data}) => {
+          let {postings, filter} = data
+          // resp should have filter and postings
+          updateData(postings)
+          updateFilter(filter)
         },
-        err => {
-          console.log(err)
-        }
+        err => console.log(err)
     )
   }
 
-  let searchFilterState = {
-    updateTextSearch: function (text) {
-      if (text) {
-        filter.jobTitleTexts = [text]
-        updateFilter({...filter})
+  // when we load page, update all data
+  useEffect(getUpdatedPostings, [])
+
+  let functions = {
+    updateJobTitleSearch: function (text) {
+      if (text !== undefined) {
+        updateJobTitleText(text)
+      }
+    },
+    updateJobDescriptionSearch: function (text) {
+      if (text !== undefined) {
+        updateJobDescriptionText(text)
       }
     },
     updateCompanySearch: function (text) {
-      if (text) {
-        filter.company = [text]
-        updateFilter({...filter})
+      if (text !== undefined) {
+        updateCompany(text)
       }
     },
     updateIncludeGraylisted: function (include) {
-      if (include === true || include === false) {
-        filter.filterGraylist = include
-        updateFilter({...filter})
-      }
-    },
-    updateIncludeBlacklisted: function (include) {
-      if (include === true || include === false) {
-        filter.filterBlacklist = include
-        updateFilter({...filter})
+      if (typeof include === "boolean") {
+        updateFilterGraylist(include)
       }
     },
     updateStatusFilter: function (status) {
-      if (status) {
-        let j = filter.statuses
+      if (status !== undefined) {
+        let j = statuses
         j[status.name] = status.checked
-        updateFilter({...filter, statuses: {...j}})
+        updateStatuses({...j})
         getUpdatedPostings()
       }
     },
     updateSiteFilter: function (site) {
-      if (site) {
-        let j = filter.jobSites
+      if (site !== undefined) {
+        let j = jobSites
         j[site.name] = site.checked
-        updateFilter({...filter, jobSites: {...j}})
+        updateJobSites({...j})
         getUpdatedPostings()
       }
+    },
+    search: function () {
+      getUpdatedPostings()
     }
   }
 
-  useEffect(() => {
-    axios.post('http://localhost:8080/jobs/all', filter).then(
-        resp => {
-          updateJobPostings(resp.data)
+  let updateJobStatus = function (id, status) {
+    axios.post('http://localhost:8080/jobs/status/' + id + '/' + status, prepareFilter()).then(
+        ({data}) => {
+          let {postings, filter} = data
+          // resp should have filter and postings
+          updateData(postings)
+          updateFilter(filter)
         },
-        err => {
-          console.log(err)
-        }
+        err => console.log(err)
     )
-  }, [])
+  }
 
   return (
       <Grid container direction="column" justify="space-evenly"
@@ -112,11 +149,22 @@ function JobsPage() {
           {/*<span>{data.numOfJobs} jobs</span>*/}
           <hr/>
           <SearchFilter
-              searchFilterState={searchFilterState} state={filter}/>
+              jobPostings={jobPostings}
+              company={company}
+              statuses={statuses}
+              jobSites={jobSites}
+              filterGraylist={filterGraylist}
+              jobDescriptionText={jobDescriptionText}
+              jobTitleText={jobTitleText}
+              functions={functions}/>
           <hr/>
           <Grid container>
             {jobPostings.map(posting => (
-                <Job key={posting.id} job={posting}/>))}
+                <Job key={posting.id}
+                     job={posting}
+                     update={updateJobStatus}
+
+                />))}
           </Grid>
         </div>
       </Grid>
@@ -124,3 +172,4 @@ function JobsPage() {
 }
 
 export default JobsPage
+
