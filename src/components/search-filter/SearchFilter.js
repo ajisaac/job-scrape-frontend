@@ -1,7 +1,6 @@
 import React from "react"
 import {Card, CardContent, Grid} from "@material-ui/core"
 import SearchBox from "./SearchBox"
-import GrayListToggle from "./GrayListToggle"
 import JobStatusFilter from "./JobStatusFilter"
 import JobSourceFilter from "./JobSourceFilter"
 import CompanySearch from "./CompanySearch"
@@ -19,7 +18,6 @@ function SearchFilter(props) {
     company,
     statuses,
     jobSites,
-    filterGraylist,
     jobDescriptionText,
     jobTitleText,
     functions,
@@ -64,15 +62,7 @@ function SearchFilter(props) {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item>
-          <Card variant={"outlined"}>
-            <CardContent className={cardContent}>
-              <GrayListToggle
-                  update={functions.updateIncludeGraylisted}
-                  state={filterGraylist}/>
-            </CardContent>
-          </Card>
-        </Grid>
+
         <Grid item>
           <Card variant={"outlined"}>
             <CardContent className={cardContent}>

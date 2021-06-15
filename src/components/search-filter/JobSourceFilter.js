@@ -9,7 +9,7 @@ function JobSourceFilter(props) {
     "Indeed",
     "Remoteco",
     "Remotiveio",
-    "Remoteok",
+    "Remoteokio",
     "Sitepoint",
     "WorkingNomads"
   ]

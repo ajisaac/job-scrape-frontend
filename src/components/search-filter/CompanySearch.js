@@ -4,7 +4,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles"
 
 let styles = makeStyles(() => ({
   textField: {
-    maxWidth: 150
+    maxWidth: 170
   }
 }))
 

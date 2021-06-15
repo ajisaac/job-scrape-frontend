@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button"
 
 let styles = makeStyles(() => ({
   textField: {
-    maxWidth: 150
+    maxWidth: 170
   }
 }))
 

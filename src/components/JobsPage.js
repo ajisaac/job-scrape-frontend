@@ -24,11 +24,10 @@ function JobsPage() {
     "Indeed": false,
     "Remoteco": false,
     "Remotiveio": false,
-    "Remoteok": false,
+    "Remoteokio": false,
     "Sitepoint": false,
     "WorkingNomads": false
   })
-  let [filterGraylist, updateFilterGraylist] = useState(true)
   let [jobDescriptionText, updateJobDescriptionText] = useState("")
   let [jobTitleText, updateJobTitleText] = useState("")
 
@@ -43,7 +42,6 @@ function JobsPage() {
         company,
         statuses,
         jobSites,
-        filterGraylist,
         jobDescriptionText,
         jobTitleTexts
       } = filter
@@ -52,7 +50,6 @@ function JobsPage() {
       if (company) updateCompany(company)
       if (statuses) updateStatuses(statuses)
       if (jobSites) updateJobSites(jobSites)
-      if (typeof filterGraylist === "boolean") updateFilterGraylist(filterGraylist)
       if (jobDescriptionText) updateJobDescriptionText(jobDescriptionText)
       if (jobTitleTexts) updateJobTitleText(jobTitleTexts)
 
@@ -60,13 +57,11 @@ function JobsPage() {
   }
 
   let prepareFilter = function () {
-    console.log(filterGraylist)
     return {
       jobPostings,
       company,
       statuses,
       jobSites,
-      filterGraylist,
       jobDescriptionText,
       jobTitleText,
     }
@@ -103,11 +98,6 @@ function JobsPage() {
         updateCompany(text)
       }
     },
-    updateIncludeGraylisted: function (include) {
-      if (typeof include === "boolean") {
-        updateFilterGraylist(include)
-      }
-    },
     updateStatusFilter: function (status) {
       if (status !== undefined) {
         let j = statuses
@@ -130,6 +120,7 @@ function JobsPage() {
   }
 
   let updateJobStatus = function (id, status) {
+    if (!id || !status) return
     axios.post('http://localhost:8080/jobs/status/' + id + '/' + status, prepareFilter()).then(
         ({data}) => {
           let {postings, filter} = data
@@ -153,7 +144,6 @@ function JobsPage() {
               company={company}
               statuses={statuses}
               jobSites={jobSites}
-              filterGraylist={filterGraylist}
               jobDescriptionText={jobDescriptionText}
               jobTitleText={jobTitleText}
               functions={functions}/>
