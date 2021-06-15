@@ -14,7 +14,8 @@ let useStyles = makeStyles(() => ({
   }
 }))
 
-function SearchFilter() {
+function SearchFilter(props) {
+  let {searchFilterState, state} = props
 
   let {cardContent} = useStyles()
 
@@ -26,29 +27,36 @@ function SearchFilter() {
         <Grid item>
           <Card variant={"outlined"}>
             <CardContent className={cardContent}>
-              <SearchBox/>
-              <CompanySearch/>
+              <SearchBox update={searchFilterState.updateTextSearch}/>
+              <CompanySearch update={searchFilterState.updateCompanySearch}/>
             </CardContent>
           </Card>
         </Grid>
         <Grid item>
           <Card variant={"outlined"}>
             <CardContent className={cardContent}>
-              <GrayListToggle/>
+              <GrayListToggle
+                  update={searchFilterState.updateIncludeGraylisted}/>
             </CardContent>
           </Card>
         </Grid>
         <Grid item>
           <Card variant={"outlined"}>
             <CardContent className={cardContent}>
-              <JobStatusFilter/>
+              <JobStatusFilter
+                  update={searchFilterState.updateStatusFilter}
+                  state={state.statuses}
+              />
             </CardContent>
           </Card>
         </Grid>
         <Grid item>
           <Card variant={"outlined"}>
             <CardContent className={cardContent}>
-              <JobSourceFilter/>
+              <JobSourceFilter
+                  update={searchFilterState.updateSiteFilter}
+                  state={state.jobSites}
+              />
             </CardContent>
           </Card>
         </Grid>

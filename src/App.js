@@ -15,47 +15,11 @@ class App extends React.Component {
     return (
         <Router>
           <Switch>
-            <Route path={"/all"}>
-              <Layout title="All Postings">
-                <JobsPage filter={"all"}/>
+            <Route path={"/jobs"}>
+              <Layout title="Jobs">
+                <JobsPage/>
               </Layout>
             </Route>
-            <Route path={"/new"}>
-              <Layout title="New">
-                <JobsPage filter={"new"}/>
-              </Layout>
-            </Route>
-            <Route path={"/saved"}>
-              <Layout title="Saved">
-                <JobsPage filter={"saved"}/>
-              </Layout>
-            </Route>
-            <Route path={"/applied"}>
-              <Layout title="Applied">
-                <JobsPage filter={"applied"}/>
-              </Layout>
-            </Route>
-            <Route path={"/interviewing"}>
-              <Layout title="Interviewing">
-                <JobsPage filter={"interviewing"}/>
-              </Layout>
-            </Route>
-            <Route path={"/excluded"}>
-              <Layout title="Excluded">
-                <JobsPage filter={"excluded"}/>
-              </Layout>
-            </Route>
-            <Route path={"/rejected"}>
-              <Layout title="Rejected">
-                <JobsPage filter={"rejected"}/>
-              </Layout>
-            </Route>
-            <Route path={"/ignored"}>
-              <Layout title="Ignored">
-                <JobsPage filter={"ignored"}/>
-              </Layout>
-            </Route>
-
             <Route path={"/scrapers"}>
               <Layout title="Scrape Job Boards">
                 <ScrapePage/>
@@ -84,8 +48,8 @@ class App extends React.Component {
             </Route>
 
             <Route path={"/"}>
-              <Layout title="All">
-                <JobsPage filter={"all"}/>
+              <Layout title="Jobs">
+                <JobsPage/>
               </Layout>
             </Route>
           </Switch>

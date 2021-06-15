@@ -1,16 +1,18 @@
 import React from "react"
-import makeStyles from "@material-ui/core/styles/makeStyles"
 import Grid from "@material-ui/core/Grid"
 import {Checkbox, FormControlLabel} from "@material-ui/core"
 
+function JobStatusFilter(props) {
+  let {update, state} = props
 
-let styles = makeStyles(() => ({
-  textField: {
-    maxWidth: 150
+  let handleChange = (event) => {
+    let name = event.target.name
+    let checked = event.target.checked
+    if (name) {
+      update({name, checked})
+    }
   }
-}))
 
-function JobStatusFilter() {
   return (
       <div>
         <Grid container spacing={0} direction={"column"}>
@@ -22,11 +24,16 @@ function JobStatusFilter() {
             "excluded",
             "rejected",
             "ignored",
-            "all"
-          ].map((text, index) => (
-              <Grid item>
+          ].map((text) => (
+              <Grid item key={text}>
                 <FormControlLabel
-                    control={<Checkbox name={text} color="primary"/>}
+                    control={
+                      <Checkbox
+                          checked={state[text]}
+                          onClick={handleChange}
+                          name={text}
+                          color="primary"/>
+                    }
                     label={text}/>
               </Grid>
           ))}

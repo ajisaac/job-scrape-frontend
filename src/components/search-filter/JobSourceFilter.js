@@ -1,45 +1,46 @@
-import React from "react"
-import makeStyles from "@material-ui/core/styles/makeStyles"
+import React, {useState} from "react"
 import {Checkbox, FormControlLabel} from "@material-ui/core"
 import Grid from "@material-ui/core/Grid"
 
+function JobSourceFilter(props) {
+  let sites = [
+    "WWR",
+    "Stackoverflow",
+    "Indeed",
+    "Remoteco",
+    "Remotiveio",
+    "Remoteok",
+    "Sitepoint",
+    "WorkingNomads"
+  ]
+  let {update, state} = props
 
-let styles = makeStyles(() => ({
-  textField: {
-    maxWidth: 150
+  let handleChange = (event) => {
+    let name = event.target.name
+    let checked = event.target.checked
+    if (name) {
+      update({name, checked})
+    }
   }
-}))
 
-function JobSourceFilter() {
   return (
       <div>
         <Grid container spacing={0} direction={"column"}>
-          {
-            [
-              "WWR",
-              "Stackoverflow",
-              "Indeed",
-              "Remoteco",
-              "Remotiveio",
-              "Remoteok",
-              "Sitepoint",
-              "WorkingNomads",
-            ].map((text, index) => {
-              return (
-                  <Grid item>
-                    <FormControlLabel
-                        control={
-                          <Checkbox
-                              // checked={state.checkedB}
-                              // onChange={handleChange}
-                              name="graylisted"
-                              color="primary"
-                          />
-                        } label={text}/>
-                  </Grid>
-              )
-            })
-          }
+          {sites.map((text) => {
+            return (
+                <Grid item key={text}>
+                  <FormControlLabel
+                      control={
+                        <Checkbox
+                            checked={state[text]}
+                            onClick={handleChange}
+                            name={text}
+                            color="primary"
+                        />
+                      } label={text}/>
+                </Grid>
+            )
+          })}
         </Grid>
       </div>
   )

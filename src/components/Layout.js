@@ -70,20 +70,10 @@ export default function Layout(props) {
           <Divider/>
           <div className={classes.drawerContainer}>
             <List>
-              {[
-                "new",
-                "saved",
-                "applied",
-                "interviewing",
-                "excluded",
-                "rejected",
-                "ignored",
-                "all"].map((text, index) => (
-                  <ListItem button key={index} component={Link}
-                            to={"/" + text.toLocaleLowerCase()}>
-                    <ListItemText primary={text}/>
-                  </ListItem>
-              ))}
+              <ListItem button component={Link}
+                        to={"/jobs"}>
+                <ListItemText primary={"jobs"}/>
+              </ListItem>
             </List>
 
             <Divider/>
