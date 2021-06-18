@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from "react"
 import {makeStyles} from "@material-ui/core/styles"
-import {Stomp} from "@stomp/stompjs"
 import axios from "axios"
 import ScrapeBox from "./ScrapeBox"
-import Button from "@material-ui/core/Button"
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -14,9 +12,6 @@ const useStyles = makeStyles(() => ({
 export default function Scraper() {
 
 
-  const url = "ws://localhost:8080/chat"
-  let client = null
-  let subscription = null
   const [scrapers, setScrapers] = useState([])
   const [entries, setEntries] = useState({})
 
@@ -25,6 +20,9 @@ export default function Scraper() {
         .then(r => {
           let d = r?.data || scrapers
           let ents = entries
+
+          // we get the scrape jobs when loading the page
+          // then we set up our scrolling text box
           d.forEach(t => {
             let sEvs = []
             for (let i = 0; i < 10; i++) {
@@ -34,6 +32,7 @@ export default function Scraper() {
               ents[t?.site] = sEvs
             }
           })
+
           setEntries(ents)
           setScrapers(d)
         })
@@ -55,6 +54,7 @@ export default function Scraper() {
     return []
   }
 
+  // adds a webscraper entry
   function addEntry(entry) {
     if (!entry)
       return
@@ -77,28 +77,20 @@ export default function Scraper() {
     setEntries(nentries)
   }
 
-  const setupClient = () => {
-    client = Stomp.client(url)
-    client.reconnect_delay = 5000
-    client.debug = () => {
-    }
-    client.logRawCommunication = false
-    client.connect({},
-        () => {
-          subscription = client.subscribe("/topic/messages", function (message) {
-            // everything comes in here
-            if (message?.body) {
-              addEntry(JSON.parse(message.body))
-            }
-          })
-        },
-        (err) => {
-          console.log(err?.headers?.message)
-        })
-  }
-
   useEffect(() => {
-    setupClient()
+    let client = new WebSocket("ws://localhost:8080/topic/messages")
+    client.onopen = () => {
+      console.log("Connected to the web socket")
+    }
+    client.onmessage = (m) => {
+      if (m?.data) {
+        try {
+          addEntry(JSON.parse(m.data))
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    }
   }, [])
 
   const classes = useStyles()
@@ -107,16 +99,7 @@ export default function Scraper() {
   }
   return (
       <div className={classes.root}>
-        <Button onClick={() => {
-          scrapers.forEach(s => {
-            if (s.id) {
-              let url = "http://localhost:8080/batch/scrape/" + s.id
-              axios.post(url, {}).then().catch(err => console.log(err))
-            }
-          })
-        }}>
-          Scrape All
-        </Button>
+        <h3>Scrapers</h3>
         <hr/>
         {scrapers.map(d => (
             <div key={d.id}>
