@@ -23,7 +23,7 @@ function SearchBox(props) {
 
   return (
       <div>
-        <Grid container spacing={1}>
+        <Grid container spacing={1} direction={"row"}>
           <Grid item>
             <TextField
                 className={textField}

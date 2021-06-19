@@ -28,8 +28,8 @@ export default function Scraper() {
             for (let i = 0; i < 10; i++) {
               sEvs.push("")
             }
-            if (t?.site) {
-              ents[t?.site] = sEvs
+            if (t?.name) {
+              ents[t?.name] = sEvs
             }
           })
 
@@ -103,7 +103,7 @@ export default function Scraper() {
         <hr/>
         {scrapers.map(d => (
             <div key={d.id}>
-              <ScrapeBox scraper={d} entries={d?.site && entries[d.site]}/>
+              <ScrapeBox scraper={d} entries={d?.name && entries[d.name]}/>
             </div>
         ))}
       </div>

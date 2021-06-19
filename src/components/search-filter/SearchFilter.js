@@ -29,7 +29,7 @@ function SearchFilter(props) {
   // filter the results
   // this filter has an entire state in redux
   return (
-      <Grid container justify={"center"} spacing={2}>
+      <Grid container justify={"center"} spacing={2} direction={"row"}>
         <Grid item>
           <Card variant={"outlined"}>
             <CardContent className={cardContent}>

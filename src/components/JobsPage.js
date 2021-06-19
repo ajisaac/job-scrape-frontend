@@ -9,6 +9,8 @@ function JobsPage() {
 
   let [jobPostings, updateJobPostings] = useState([])
   let [company, updateCompany] = useState("")
+  let [numJobs, updateNumJobs] = useState(0)
+  let [numCompanies, updateNumCompanies] = useState(0)
   let [statuses, updateStatuses] = useState({
     "new": false,
     "saved": false,
@@ -21,11 +23,8 @@ function JobsPage() {
   let [jobSites, updateJobSites] = useState({
     "WWR": false,
     "Stackoverflow": false,
-    "Indeed": false,
     "Remoteco": false,
-    "Remotiveio": false,
     "Remoteokio": false,
-    "Sitepoint": false,
     "WorkingNomads": false
   })
   let [jobDescriptionText, updateJobDescriptionText] = useState("")
@@ -70,10 +69,14 @@ function JobsPage() {
   let getUpdatedPostings = () => {
     axios.post('http://localhost:8080/jobs/all', prepareFilter()).then(
         ({data}) => {
-          let {postings, filter} = data
+          let {postings, filter, numJobs, numCompanies} = data
           // resp should have filter and postings
           updateData(postings)
           updateFilter(filter)
+          if (numCompanies !== undefined)
+            updateNumCompanies(numCompanies)
+          if (numJobs !== undefined)
+            updateNumJobs(numJobs)
         },
         err => console.log(err)
     )
@@ -123,10 +126,14 @@ function JobsPage() {
     if (!id || !status) return
     axios.post('http://localhost:8080/jobs/status/' + id + '/' + status, prepareFilter()).then(
         ({data}) => {
-          let {postings, filter} = data
+          let {postings, filter, numCompanies, numJobs} = data
           // resp should have filter and postings
           updateData(postings)
           updateFilter(filter)
+          if (numCompanies !== undefined)
+            updateNumCompanies(numCompanies)
+          if (numJobs !== undefined)
+            updateNumJobs(numJobs)
         },
         err => console.log(err)
     )
@@ -136,8 +143,8 @@ function JobsPage() {
       <Grid container direction="column" justify="space-evenly"
             alignItems="stretch">
         <div className={"main-panel"}>
-          {/*<span>{data.numOfCompanies} companies - </span>*/}
-          {/*<span>{data.numOfJobs} jobs</span>*/}
+          <span>{numCompanies} companies - </span>
+          <span>{numJobs} jobs</span>
           <hr/>
           <SearchFilter
               jobPostings={jobPostings}

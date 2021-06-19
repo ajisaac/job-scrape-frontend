@@ -6,11 +6,8 @@ function JobSourceFilter(props) {
   let sites = [
     "WWR",
     "Stackoverflow",
-    "Indeed",
     "Remoteco",
-    "Remotiveio",
     "Remoteokio",
-    "Sitepoint",
     "WorkingNomads"
   ]
   let {update, state} = props

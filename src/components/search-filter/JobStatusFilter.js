@@ -25,7 +25,7 @@ function JobStatusFilter(props) {
             "rejected",
             "ignored",
           ].map((text) => (
-              <Grid item key={text}>
+              <Grid item key={text} >
                 <FormControlLabel
                     control={
                       <Checkbox

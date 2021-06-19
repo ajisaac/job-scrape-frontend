@@ -26,21 +26,65 @@ const styles = makeStyles(() => ({
   },
   descriptionClass: {
     marginTop: "24px"
+  },
+  "companyBar div": {
+    display: "inline"
+  },
+  companyHolder: {
+    marginBottom: 30,
+    marginLeft: -20,
+    marginTop: -10,
+    fontWeight: "bold",
+    fontSize: "smaller",
+    color: "#989191",
+  },
+  siteClass: {
+    marginBottom: 10,
+    marginLeft: -20,
+    marginTop: -10,
   }
 }))
 
 function Job(props) {
-  const {date, description, href, jobTitle, location, status} = props.job
-  const {gridRoot, root, job_title, descriptionClass, statusSpan} = styles()
+  const {
+    date,
+    description,
+    href,
+    jobTitle,
+    location,
+    status,
+    company,
+    jobSite
+  } = props.job
+
+  const {
+    gridRoot,
+    root,
+    job_title,
+    descriptionClass,
+    statusSpan,
+    companyHolder,
+    siteClass,
+    companyBar
+  } = styles()
 
   return (
 
       <Grid className={gridRoot} item>
         <div className={root}>
 
-          <div className={job_title}>
+          <div className={companyBar}>
 
-            <div>
+            <div className={siteClass}>
+              <span>{jobSite}</span>
+            </div>
+            <div className={companyHolder}>
+              <span>{company}</span>
+            </div>
+          </div>
+
+          <div className={job_title}>
+            <div className={"testclass"}>
               <b>
                 <a target="_blank" rel="noreferrer noopener" href={href}>
                   {jobTitle}{location && (" - " + location)}

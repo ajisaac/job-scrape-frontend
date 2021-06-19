@@ -6,12 +6,15 @@ let useStyles = makeStyles(() => ({
   root: {
     backgroundColor: "black",
     color: "green",
-    padding: 10
+    padding: 10,
+    maxHeight: 180,
+    minHeight: 180,
+    overflow: "hidden"
   },
   entry: {
     // padding: 2,
     fontFamily: "monospace",
-    fontWeight: "bold"
+    fontWeight: "bold",
   }
 }))
 // The scrolling status box for if we are scraping
@@ -27,7 +30,7 @@ export default function ScrollingStatusBox(props) {
     }
   })
 
-  if(!hasValidEntries){
+  if (!hasValidEntries) {
     return (
         <div/>
     )
@@ -37,9 +40,9 @@ export default function ScrollingStatusBox(props) {
       <div className={root}>
         {entries.map(e => {
           if (typeof e === "string" && !!e)
-            return <div className={entry}>{e}</div>
+            return <div key={e} className={entry}>{e}</div>
           else
-            return <div/>
+            return null
         })}
       </div>
   )
