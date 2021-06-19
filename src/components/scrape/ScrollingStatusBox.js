@@ -4,8 +4,8 @@ import makeStyles from "@material-ui/core/styles/makeStyles"
 
 let useStyles = makeStyles(() => ({
   root: {
-    backgroundColor: "black",
-    color: "green",
+    backgroundColor: "#0d0e0d",
+    color: "#2bda2b",
     padding: 10,
     maxHeight: 180,
     minHeight: 180,
@@ -14,12 +14,15 @@ let useStyles = makeStyles(() => ({
   entry: {
     // padding: 2,
     fontFamily: "monospace",
-    fontWeight: "bold",
+    fontWeight: 500,
+  },
+  dateClass: {
+    fontWeight: 900
   }
 }))
 // The scrolling status box for if we are scraping
 export default function ScrollingStatusBox(props) {
-  let {root, entry} = useStyles()
+  let {root, entry, dateClass} = useStyles()
 
   let entries = props?.entries
 
@@ -39,10 +42,11 @@ export default function ScrollingStatusBox(props) {
   return (
       <div className={root}>
         {entries.map(e => {
-          if (typeof e === "string" && !!e)
-            return <div key={e} className={entry}>{e}</div>
-          else
-            return null
+          if (typeof e === "string" && !!e) {
+            let date = e.substr(0, 8)
+            let rest = e.substr(8)
+            return <div key={e} className={entry}><span className={dateClass}>{date}</span>{rest}</div>
+          } else return null
         })}
       </div>
   )
