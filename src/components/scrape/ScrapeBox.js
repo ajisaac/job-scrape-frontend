@@ -24,10 +24,19 @@ export default function ScrapeBox(props) {
             .catch(err => {
               console.log(err)
             })
-      } else {
-
       }
     }}>Scrape</Button>
+    <Button onClick={() => {
+      if (props?.scraper?.id) {
+        let url = "http://localhost:8080/batch/stop-scrape/" + props.scraper.id
+        axios.post(url, {})
+            .then()
+            .catch(err => {
+              console.log(err)
+            })
+      }
+    }}>Stop</Button>
+
     <span className={spacer}>-</span>
     <span>{s.name}</span>
     <ScrollingStatusBox scraper={s} entries={props.entries}/>
