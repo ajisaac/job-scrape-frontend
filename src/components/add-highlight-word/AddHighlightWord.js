@@ -1,6 +1,6 @@
 import React, {createRef, useEffect, useState} from "react"
 import makeStyles from "@material-ui/core/styles/makeStyles"
-import {Button, Card, Grid, TextField} from "@material-ui/core"
+import {Card, Grid, TextField} from "@material-ui/core"
 import axios from "axios"
 
 const useStyles = makeStyles(theme => ({
@@ -51,7 +51,6 @@ function AddHighlightWord(props) {
     formTitle,
     form,
     inputField,
-    button,
     highlight
   } = useStyles()
 
@@ -110,13 +109,6 @@ function AddHighlightWord(props) {
                          }}
                          className={inputField}/>
             </Grid>
-            <Button
-                variant={"outlined"}
-                color={"primary"}
-                className={button}
-                onClick={() => {
-                  addHighlightWord()
-                }}>SUBMIT</Button>
           </form>
           <hr/>
           <br/>
