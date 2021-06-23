@@ -18,13 +18,13 @@ class App extends React.Component {
               </Layout>
             </Route>
             <Route path={"/scrapers"}>
-              <Layout title="Scrape Job Boards">
+              <Layout title="Scrapers">
                 <ScrapePage/>
               </Layout>
             </Route>
 
             <Route path={"/add-highlight-word"}>
-              <Layout title="Add Highlight Word">
+              <Layout title="Highlight Words">
                 <AddHighlightWord/>
               </Layout>
             </Route>

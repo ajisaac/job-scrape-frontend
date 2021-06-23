@@ -86,7 +86,7 @@ export default function Layout(props) {
             <List>
               <ListItem button component={Link}
                         to={"/add-highlight-word"}>
-                <ListItemText primary={"Add Highlight Word"}/>
+                <ListItemText primary={"highlight words"}/>
               </ListItem>
             </List>
 
